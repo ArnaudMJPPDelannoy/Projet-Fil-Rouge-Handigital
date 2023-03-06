@@ -23,7 +23,7 @@
             <input type="text" name="pseudoname" id="pseudo" placeholder="Pseudonyme" class="text-input">
             <div class="pass-input">
                 <input type="password" name="password" id="password" placeholder="Mot de Passe" class="text-input">
-                <i class="bi bi-eye-fill" id="pass-show"></i>
+                <i class="bi bi-eye-fill pass-show"></i>
             </div>
             <input type="password" name="pass-check" id="pass-check" placeholder="Confirmer Mot de Passe" class="text-input">
             <input type="submit" value="Inscription" class="button">

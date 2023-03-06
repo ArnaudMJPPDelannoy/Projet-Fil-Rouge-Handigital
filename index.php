@@ -19,7 +19,7 @@
             <input type="text" name="username" id="username" placeholder="Identifiant" class="text-input">
             <div class="pass-input">
                 <input type="password" name="password" id="password" placeholder="Mot de Passe" class="text-input">
-                <i class="bi bi-eye-fill" id="pass-show"></i>
+                <i class="bi bi-eye-fill pass-show"></i>
             </div>
             <input type="submit" value="Se connecter" class="button">
         </form>
