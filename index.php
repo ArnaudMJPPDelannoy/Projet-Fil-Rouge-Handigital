@@ -17,13 +17,15 @@
         <h1>Connexion</h1>
         <form action="" method="post">
             <input type="text" name="username" id="username" placeholder="Identifiant" class="text-input">
-            <input type="password" name="password" id="password" placeholder="Mot de Passe" class="text-input">
-            <i class="bi bi-eye-fill" id="passShow"></i>
+            <div class="pass-input">
+                <input type="password" name="password" id="password" placeholder="Mot de Passe" class="text-input">
+                <i class="bi bi-eye-fill" id="pass-show"></i>
+            </div>
             <input type="submit" value="Se connecter" class="button">
         </form>
         <a href="#">Mot de passe oublié ?</a>
         <h3>Pas encore inscrit ?</h3>
-        <a href="" class="button">Inscription</a>
+        <a href="signup.php" class="button">Inscription</a>
     </main>
 </body>
 </html>
