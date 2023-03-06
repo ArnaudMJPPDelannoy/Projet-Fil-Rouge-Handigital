@@ -3,6 +3,10 @@
     src: url("../fonts/Inter-VariableFont_slnt,wght.ttf");
 }
 
+.error {
+    color: red;
+}
+
 * {
     font-family: "Inter";
 }
@@ -56,7 +60,7 @@ form {
     position: relative;
 }
 
-.pass-show {
+#pass-show {
     position: absolute;
     color: gray;
     left: 85%;

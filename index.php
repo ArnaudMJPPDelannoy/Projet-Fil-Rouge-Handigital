@@ -1,5 +1,24 @@
 <?php
-// Add code to redirect if they are already connected.
+require "scripts/functions.php";
+if (isSetAndNotEmptyObject($_POST, "username") && isSetAndNotEmptyObject($_POST, "password")) {
+    require "scripts/connect.php";
+    $username = $_POST["username"];
+    $password = strip_tags($_POST["password"]);
+    $query = $pdo->prepare("SELECT * FROM `users` WHERE `username` = :uname");
+    $query->bindValue(":uname", $username);
+    $query->execute();
+    $user = $query->fetch(PDO::FETCH_ASSOC);
+    if (isset($user) && !empty($user) && password_verify($password, $user["password"])) {
+        $_SESSION["user"] = $username;
+    } else {
+        $error = "Identifiant ou Mot de Passe invalide.";
+    }
+}
+
+if (isSetAndNotEmptyObject($_SESSION, "user")) {
+    header("Location:feed.php");
+    die;
+}
 ?>
 
 <!DOCTYPE html>
@@ -15,11 +34,12 @@
 <body>
     <main>
         <h1>Connexion</h1>
+        <h3 class="error"><?php if (isset($error) && !empty("error")) echo $error; ?></h3>
         <form action="" method="post">
-            <input type="text" name="username" id="username" placeholder="Identifiant" class="text-input">
+            <input type="text" name="username" id="username" placeholder="Identifiant" class="text-input" required>
             <div class="pass-input">
-                <input type="password" name="password" id="password" placeholder="Mot de Passe" class="text-input">
-                <i class="bi bi-eye-fill pass-show"></i>
+                <input type="password" name="password" id="password" placeholder="Mot de Passe" class="text-input" required>
+                <i class="bi bi-eye-fill" id="pass-show"></i>
             </div>
             <input type="submit" value="Se connecter" class="button">
         </form>
@@ -27,5 +47,6 @@
         <h3>Pas encore inscrit ?</h3>
         <a href="signup.php" class="button">Inscription</a>
     </main>
+    <script src="js/main.js"></script>
 </body>
 </html>
