@@ -1,4 +1,6 @@
 <?php
+require "scripts/functions.php";
+require "scripts/connect.php";
 if (isset($_GET["category"])) {
     $category = $_GET["category"];
 } else {
@@ -7,6 +9,8 @@ if (isset($_GET["category"])) {
 switch ($category) {
     case "news":
         $title = "News";
+        $repository = new ArticlesRepository($pdo);
+        $content = $repository->getAll();
         break;
     case "games":
         $title = "Jeux Préférés";
@@ -23,6 +27,51 @@ switch ($category) {
         break;
 }
 $indicatorClass = "pos-" . $category;
+
+function displayContent($category, $content)
+{
+    switch ($category) {
+        case "news":
+            foreach ($content as $article) {
+                require "templates/articleCard.php";
+            }
+            break;
+        case "games":
+            foreach ($content as $game) {
+                // Require game card template here.
+            }
+            break;
+        case "friends":
+            foreach ($content as $friend) {
+                // Require friend card template here.
+            }
+            // Do something to suggest new friends.
+            break;
+        case "chat":
+            // Show the secondary Tab-Bar.
+            // And figure out the rest.
+            break;
+    }
+}
+
+function displayNoContentMsg($category) {
+    switch ($category) {
+        case "news":
+            echo "<h3>Il n'y a pas d'article à afficher.</h3>";
+            break;
+        case "games":
+            echo "<h3>Vous n'avez pas encore ajouté de jeu. À quoi jouez vous ?</h3>";
+            break;
+        case "friends":
+            echo "<h3>Vous n'avez pas encore d'ami. Recherchez quelqu'un ou trouvez-en dans les suggestions ci-dessous!</h3>";
+            break;
+        case "chat":
+            // TO DO
+        default:
+            echo "<h3>Il n'y a rien à afficher.</h3>";
+            break;
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -38,7 +87,15 @@ $indicatorClass = "pos-" . $category;
 <body>
     <?php require "include/header.php"; ?>
     <main class="content" id="content">
-        <h2>Mettre le contenu ici!!!</h2>
+        <?php
+            if (!isset($content) || $content === false) { ?>
+                <h3>Une erreur c'est produite lors de la récuperation du contenu.</h3>
+            <?php } else if (empty($content)) {
+                displayNoContentMsg($category);
+            } else {
+                displayContent($category, $content);
+            }
+        ?>
     </main>
     <?php require "include/footer.php"; ?>
 </body>

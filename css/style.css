@@ -162,3 +162,28 @@ footer a {
     left: 83%;
     top: -20%;
 }
+
+.content {
+    width: 90%;
+    height: 64.5vh;
+    overflow-y: scroll;
+}
+
+.card {
+    color: black;
+    background-color: #761D95;
+    height: 12.5vh;
+    text-align: left;
+    margin: 2.5% 0;
+    overflow: hidden;
+}
+
+.card h2 {
+    font-size: 1em;
+    margin: 0 1%;
+}
+
+.card p {
+    font-size: 1em;
+    margin: 0.5vh 1%;
+}
