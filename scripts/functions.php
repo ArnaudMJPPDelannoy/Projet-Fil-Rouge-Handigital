@@ -1,7 +1,14 @@
 <?php
-// spl_autoload_register(function($className) {
-//     include "classes/" . $className . ".php";
-// });
+function chargerClasse($classe) {
+    if (file_exists("class/" . $classe . ".php")) {
+        require "class/" . $classe . ".php";
+    } else if (file_exists("repository/" . $classe . ".php")) {
+        require "repository/" . $classe . ".php";
+    } else {
+        exit("Le fichier " . $classe . ".php n'a pas été trouvé.\nVerifiez votre code.");
+    }
+}
+spl_autoload_register("chargerClasse");
 
 /**
  * Is the Object's element set and not empty?
