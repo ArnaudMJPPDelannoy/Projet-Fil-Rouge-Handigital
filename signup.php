@@ -17,6 +17,7 @@ if (isSetAndNotEmptyObject($_POST, "lastname") && isSetAndNotEmptyObject($_POST,
             $age = strip_tags($_POST["age"]);
             $gender = strip_tags($_POST["gender"]);
             $email = strip_tags($_POST["email"]);
+            $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
             $user = new User([
                 "lastName" => $lastname,
                 "firstName" => $firstname,
@@ -24,9 +25,11 @@ if (isSetAndNotEmptyObject($_POST, "lastname") && isSetAndNotEmptyObject($_POST,
                 "gender" => $gender,
                 "email" => $email,
                 "userName" => $username,
-                "password" => $password,
+                "password" => $hashedPassword,
             ]);
             $userRepo->add($user);
+
+            header("Location:./");
         }
     }
 }

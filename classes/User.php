@@ -114,7 +114,7 @@ class User {
 
     public function setPassword(string $newPassword)
     {
-        $this->_password = password_hash($newPassword, PASSWORD_DEFAULT);
+        $this->_password = $newPassword;
     }
 
     public function getProfileImageUrl()
