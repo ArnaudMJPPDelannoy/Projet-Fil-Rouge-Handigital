@@ -4,7 +4,6 @@ class Article {
     private string $_title;
     private string $_content;
     private string $_bannerImageUrl;
-    private string $_iconImageUrl;
 
     public function __construct(array $data)
     {
@@ -18,6 +17,8 @@ class Article {
 
             if (method_exists($this, $method)) {
                 $this->$method($value);
+            } else if ($key == "Id_Articles") {
+                $this->setId($value);
             }
         }
     }
@@ -62,16 +63,6 @@ class Article {
     public function setBannerImageUrl(string $newBannerUrl)
     {
         $this->_bannerImageUrl = $newBannerUrl;
-    }
-
-    public function getIconImageUrl()
-    {
-        return $this->_iconImageUrl;
-    }
-
-    public function setIconImageUrl(string $newIconUrl)
-    {
-        $this->_iconImageUrl = $newIconUrl;
     }
 }
 ?>

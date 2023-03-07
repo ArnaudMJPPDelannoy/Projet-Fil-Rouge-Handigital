@@ -4,6 +4,7 @@ class Game {
     private string $_name;
     private string $_description;
     private string $_bannerImageUrl;
+    private string $_iconImageUrl;
 
     public function __construct(array $data)
     {
@@ -61,6 +62,16 @@ class Game {
     public function setBannerImageUrl(string $newUrl)
     {
         $this->_bannerImageUrl = $newUrl;
+    }
+
+    public function getIconImageUrl()
+    {
+        return $this->_iconImageUrl;
+    }
+
+    public function setIconImageUrl(string $newIconUrl)
+    {
+        $this->_iconImageUrl = $newIconUrl;
     }
 }
 ?>
