@@ -2,13 +2,11 @@
 require "scripts/functions.php";
 if (isSetAndNotEmptyObject($_POST, "username") && isSetAndNotEmptyObject($_POST, "password")) {
     require "scripts/connect.php";
+    $userRepo = new UsersRepository($pdo);
     $username = $_POST["username"];
     $password = strip_tags($_POST["password"]);
-    $query = $pdo->prepare("SELECT * FROM `users` WHERE `username` = :uname");
-    $query->bindValue(":uname", $username);
-    $query->execute();
-    $user = $query->fetch(PDO::FETCH_ASSOC);
-    if (isset($user) && !empty($user) && password_verify($password, $user["password"])) {
+    $user = $userRepo->get($username);
+    if (isset($user) && !empty($user) && password_verify($password, $user->getPassword())) {
         $_SESSION["user"] = $username;
     } else {
         $error = "Identifiant ou Mot de Passe invalide.";

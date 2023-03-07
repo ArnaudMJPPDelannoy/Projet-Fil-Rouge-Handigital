@@ -7,22 +7,27 @@ if (isSetAndNotEmptyObject($_POST, "lastname") && isSetAndNotEmptyObject($_POST,
         $error = "Les mots de passes doivent être identiques.";
     } else {
         require "scripts/connect.php";
-        $lastname = strip_tags($_POST["lastname"]);
-        $firstname = strip_tags($_POST["firstname"]);
-        $age = strip_tags($_POST["age"]);
-        $gender = strip_tags($_POST["gender"]);
-        $email = strip_tags($_POST["email"]);
+        $userRepo = new UsersRepository($pdo);
         $username = strip_tags($_POST["pseudoname"]);
-        $truePassword = password_hash($password, PASSWORD_DEFAULT);
-        $query = $pdo->prepare("INSERT INTO `users` (lastname, firstname, age, gender, email, username, password) VALUES (:lname, :fname, :age, :gender, :email, :uname, :pass)");
-        $query->bindValue(":lname", $lastname);
-        $query->bindValue(":fname", $firstname);
-        $query->bindValue(":age", $age);
-        $query->bindValue(":gender", $gender);
-        $query->bindValue(":email", $email);
-        $query->bindValue(":uname", $username);
-        $query->bindValue(":pass", $truePassword);
-        $query->execute();
+        if ($userRepo->exists($username)) {
+            $error = "Un utilisateur avec ce pseudonyme existe déjà.";
+        } else {
+            $lastname = strip_tags($_POST["lastname"]);
+            $firstname = strip_tags($_POST["firstname"]);
+            $age = strip_tags($_POST["age"]);
+            $gender = strip_tags($_POST["gender"]);
+            $email = strip_tags($_POST["email"]);
+            $user = new User([
+                "lastName" => $lastname,
+                "firstName" => $firstname,
+                "age" => $age,
+                "gender" => $gender,
+                "email" => $email,
+                "userName" => $username,
+                "password" => $password,
+            ]);
+            $userRepo->add($user);
+        }
     }
 }
 ?>

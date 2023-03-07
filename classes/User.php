@@ -5,8 +5,9 @@ class User {
     private string $_firstName;
     private int $_age;
     private string $_gender;
+    private string $_email;
     private string $_userName;
-    private string $_password; // Maybe not...
+    private string $_password;
     private string $_profileImageUrl;
 
     public function __construct(array $data)
@@ -21,6 +22,8 @@ class User {
 
             if (method_exists($this, $method)) {
                 $this->$method($value);
+            } else if ($key == "Id_Users") {
+                $this->setId($value);
             }
         }
     }
@@ -82,6 +85,18 @@ class User {
         }
     }
 
+    public function getEmail()
+    {
+        return $this->_email;
+    }
+
+    public function setEmail(string $newMail)
+    {
+        if (filter_var($newMail, FILTER_VALIDATE_EMAIL)) {
+            $this->_email = $newMail;
+        }
+    }
+
     public function getUserName()
     {
         return $this->_userName;
@@ -90,6 +105,16 @@ class User {
     public function setUserName(string $newUserName)
     {
         $this->_userName = $newUserName;
+    }
+
+    public function getPassword()
+    {
+        return $this->_password;
+    }
+
+    public function setPassword(string $newPassword)
+    {
+        $this->_password = password_hash($newPassword, PASSWORD_DEFAULT);
     }
 
     public function getProfileImageUrl()

@@ -1,9 +1,9 @@
 <?php
 function chargerClasse($classe) {
-    if (file_exists("class/" . $classe . ".php")) {
-        require "class/" . $classe . ".php";
-    } else if (file_exists("repository/" . $classe . ".php")) {
-        require "repository/" . $classe . ".php";
+    if (file_exists("classes/" . $classe . ".php")) {
+        require "classes/" . $classe . ".php";
+    } else if (file_exists("repositories/" . $classe . ".php")) {
+        require "repositories/" . $classe . ".php";
     } else {
         exit("Le fichier " . $classe . ".php n'a pas été trouvé.\nVerifiez votre code.");
     }

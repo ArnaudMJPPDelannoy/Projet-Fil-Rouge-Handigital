@@ -1,6 +1,28 @@
 <?php
-$title = "News";
-$indicatorClass = "pos-news";
+if (isset($_GET["category"])) {
+    $category = $_GET["category"];
+} else {
+    $category = "news";
+}
+switch ($category) {
+    case "news":
+        $title = "News";
+        break;
+    case "games":
+        $title = "Jeux Préférés";
+        break;
+    case "friends":
+        $title = "Liste d'Amis";
+        break;
+    case "chat":
+        $title = "Messages";
+        break;
+    default:
+        $category = "news";
+        $title = "News";
+        break;
+}
+$indicatorClass = "pos-" . $category;
 ?>
 
 <!DOCTYPE html>
