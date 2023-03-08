@@ -23,6 +23,7 @@ class UsersRepository {
         $email = $user->getEmail();
         $userName = $user->getUserName();
         $password = $user->getPassword();
+        
         $query = $this->_db->prepare("INSERT INTO `users` (lastname, firstname, age, gender, email, username, password) VALUES (:lname, :fname, :age, :gender, :email, :uname, :pass)");
         $query->bindValue(":lname", $lastName);
         $query->bindValue(":fname", $firstName);
@@ -54,6 +55,29 @@ class UsersRepository {
         $query->execute();
         $result = $query->fetch(PDO::FETCH_ASSOC);
         return new User($result);
+    }
+
+    /**
+     * Returns the friends of a User.
+     *
+     * @param   int  $id  The Id of the User.
+     *
+     * @return  array    An array of Users.
+     */
+    public function getFriends(int $id)
+    {
+        if ($id <= 0) return [];
+        $query = $this->_db->prepare("SELECT * FROM `friends` WHERE `Id_Users` = :id");
+        $query->bindValue(":id", $id);
+        $query->execute();
+        $result = $query->fetchAll(PDO::FETCH_ASSOC);
+        $friends = [];
+
+        foreach ($result as $friend) {
+            $friends[] = new User($friend);
+        }
+
+        return $friends;
     }
 
     /**

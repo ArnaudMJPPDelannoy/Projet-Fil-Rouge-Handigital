@@ -24,8 +24,9 @@ class ArticlesRepository {
         $query->bindValue(":title", $title);
         $query->bindValue(":content", $content);
         $query->bindValue(":bannerimgurl", $bannerImgUrl);
-
         $query->execute();
+
+        $article->hydrate(["id" => $this->_db->lastInsertId()]);
     }
 
     /**

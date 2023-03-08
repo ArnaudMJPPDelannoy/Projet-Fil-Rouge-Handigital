@@ -18,6 +18,8 @@ class Game {
 
             if (method_exists($this, $method)) {
                 $this->$method($value);
+            } else if ($key == "Id_Games") {
+                $this->setId($value);
             }
         }
     }

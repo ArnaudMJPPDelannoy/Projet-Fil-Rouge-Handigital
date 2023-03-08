@@ -7,7 +7,7 @@ if (isSetAndNotEmptyObject($_POST, "username") && isSetAndNotEmptyObject($_POST,
     $password = strip_tags($_POST["password"]);
     $user = $userRepo->get($username);
     if (isset($user) && !empty($user) && password_verify($password, $user->getPassword())) {
-        $_SESSION["user"] = $username;
+        $_SESSION["user"] = $user->getId();
     } else {
         $error = "Identifiant ou Mot de Passe invalide.";
     }

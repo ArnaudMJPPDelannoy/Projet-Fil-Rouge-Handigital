@@ -17,6 +17,8 @@ switch ($category) {
         break;
     case "friends":
         $title = "Liste d'Amis";
+        $repository = new UsersRepository($pdo);
+        $content = $repository->getFriends($_SESSION["user"]);
         break;
     case "chat":
         $title = "Messages";
