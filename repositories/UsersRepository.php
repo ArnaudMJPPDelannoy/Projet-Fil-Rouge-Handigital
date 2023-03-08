@@ -23,7 +23,7 @@ class UsersRepository {
         $email = $user->getEmail();
         $userName = $user->getUserName();
         $password = $user->getPassword();
-        
+
         $query = $this->_db->prepare("INSERT INTO `users` (lastname, firstname, age, gender, email, username, password) VALUES (:lname, :fname, :age, :gender, :email, :uname, :pass)");
         $query->bindValue(":lname", $lastName);
         $query->bindValue(":fname", $firstName);
@@ -78,6 +78,31 @@ class UsersRepository {
         }
 
         return $friends;
+    }
+
+    /**
+     * Returns all the Games a User has in their favorites.
+     *
+     * @param   int  $id  The id of the User
+     *
+     * @return  array    An Array of Games.
+     */
+    public function getPlayedGames(int $id)
+    {
+        if ($id <= 0) return [];
+
+        $query = $this->_db->prepare("SELECT * FROM `play` WHERE `Id_Users` = :id");
+        $query->bindValue(":id", $id);
+        $query->execute();
+
+        $result = $query->fetchAll(PDO::FETCH_ASSOC);
+        $playedGames = [];
+
+        foreach ($result as $game) {
+            $playedGames[] = new Game($game);
+        }
+
+        return $playedGames;
     }
 
     /**

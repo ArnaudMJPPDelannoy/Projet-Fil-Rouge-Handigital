@@ -14,6 +14,8 @@ switch ($category) {
         break;
     case "games":
         $title = "Jeux Préférés";
+        $repository = new UsersRepository($pdo);
+        $content = $repository->getPlayedGames($_SESSION["user"]);
         break;
     case "friends":
         $title = "Liste d'Amis";
@@ -47,7 +49,7 @@ function displayContent($category, $content)
             foreach ($content as $friend) {
                 // Require friend card template here.
             }
-            // Do something to suggest new friends.
+            displayFriendSuggestions();
             break;
         case "chat":
             // Show the secondary Tab-Bar.
@@ -66,6 +68,7 @@ function displayNoContentMsg($category) {
             break;
         case "friends":
             echo "<h3>Vous n'avez pas encore d'ami. Recherchez quelqu'un ou trouvez-en dans les suggestions ci-dessous!</h3>";
+            displayFriendSuggestions();
             break;
         case "chat":
             // TO DO
@@ -73,6 +76,14 @@ function displayNoContentMsg($category) {
             echo "<h3>Il n'y a rien à afficher.</h3>";
             break;
     }
+}
+
+function displayFriendSuggestions()
+{ ?>
+    <h2>Suggestions</h2>
+    <p>Ces personnes jouent aux mêmes jeux ou types de jeux que vous.</p>
+<?php
+    // Make the suggestion list and display it here.
 }
 ?>
 

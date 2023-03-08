@@ -169,6 +169,16 @@ footer a {
     overflow-y: scroll;
 }
 
+.content_no_header {
+    width: 95%;
+    height: 88vh;
+    overflow-y: scroll;
+}
+
+.article_card_link {
+    text-decoration: none;
+}
+
 .card {
     color: black;
     background-color: #761D95;
@@ -176,7 +186,6 @@ footer a {
     text-align: left;
     margin: 2.5% 0;
     overflow: hidden;
-    cursor: pointer;
 }
 
 .card h2 {
@@ -187,4 +196,42 @@ footer a {
 .card p {
     font-size: 1em;
     margin: 0 1%;
+}
+
+.game_card {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.banner {
+    height: 20vh;
+}
+
+.banner img {
+    height: 100%;
+}
+
+.back-arrow {
+    background-color: white;
+    display: block;
+    color: black;
+    border-radius: 50%;
+    font-size: 12.5vmin;
+    width: 15vmin;
+    height: 15vmin;
+    position: absolute;
+    left: 0.5vw;
+    top: 0.5vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.article-content {
+    background-color: #761D95;
+    color: black;
+    text-align: left;
+    padding: 1vh 1vw;
 }
