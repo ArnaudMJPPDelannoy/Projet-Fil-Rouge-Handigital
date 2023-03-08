@@ -24,6 +24,8 @@ class User {
                 $this->$method($value);
             } else if ($key == "Id_Users") {
                 $this->setId($value);
+            } else if ($key == "profile_image_url") {
+                $this->setProfileImageUrl($value);
             }
         }
     }
@@ -119,6 +121,7 @@ class User {
 
     public function getProfileImageUrl()
     {
+        if (!isset($this->_profileImageUrl)) return "";
         return $this->_profileImageUrl;
     }
 

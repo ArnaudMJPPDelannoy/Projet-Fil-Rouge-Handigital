@@ -19,6 +19,8 @@ class Article {
                 $this->$method($value);
             } else if ($key == "Id_Articles") {
                 $this->setId($value);
+            } else if ($key == "banner_image_url") {
+                $this->setBannerImageUrl($value);
             }
         }
     }

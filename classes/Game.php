@@ -20,6 +20,10 @@ class Game {
                 $this->$method($value);
             } else if ($key == "Id_Games") {
                 $this->setId($value);
+            } else if ($key == "banner_image_url") {
+                $this->setBannerImageUrl($value);
+            } else if ($key == "icon_image_url") {
+                $this->setIconImageUrl($value);
             }
         }
     }

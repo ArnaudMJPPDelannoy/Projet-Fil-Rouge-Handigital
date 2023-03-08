@@ -64,6 +64,29 @@ class ArticlesRepository {
 
         return $articles;
     }
+
+    /**
+     * Returns an Article's Comments
+     *
+     * @param   int  $id  The Id of the Article
+     *
+     * @return  array    An Array of Comments
+     */
+    public function getComments(int $id)
+    {
+        $query = $this->_db->prepare("SELECT * FROM `comments` WHERE `Id_Articles` = :id");
+        $query->bindValue(":id", $id);
+        $query->execute();
+
+        $result = $query->fetchAll(PDO::FETCH_ASSOC);
+        $comments = [];
+
+        foreach ($result as $comment) {
+            $comments[] = new Comment($comment);
+        }
+
+        return $comments;
+    }
     
     /**
      * Updates an Article in the Database.

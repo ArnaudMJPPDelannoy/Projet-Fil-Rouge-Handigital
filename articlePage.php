@@ -12,6 +12,7 @@
             $articleTitle = $article->getTitle();
             $articleContent = $article->getContent();
             $articleBanner = $article->getBannerImageUrl();
+            $articleComments = $repository->getComments($article->getId());
         }
     } else {
         header("Location:feed.php");
@@ -39,7 +40,15 @@
         <h1><?php echo $articleTitle; ?></h1>
         <p class="article-content"><?php echo $articleContent; ?></p>
         <h2>Commentaires</h2>
-        <?php // Afficher les commentaires ici. ?>
+        <?php if (count($articleComments) <= 0) { ?>
+            <p>Il n'y a pas de commentaires.</p>
+        <?php } else {
+            foreach ($articleComments as $comment) {
+                // Require commentCard here.
+            }
+        }
+        // Maybe put an area to comment here ?
+        ?>
     </main>
     <?php require "include/footer.php"; ?>
 </body>
