@@ -3,6 +3,21 @@ class ForumMsg extends MessageBase {
     private int $_gameId;
     private int $_forumPosterId;
 
+    public function hydrate(array $data)
+    {
+        foreach ($data as $key => $value) {
+            $method = "set" . ucfirst($key);
+
+            if (method_exists($this, $method)) {
+                $this->$method($value);
+            } else if ($key == "Id_Games") {
+                $this->setGameId($value);
+            } else if ($key == "Id_ForumPoster") {
+                $this->setForumPosterId($value);
+            }
+        }
+    }
+
     public function getGameId()
     {
         return $this->_gameId;

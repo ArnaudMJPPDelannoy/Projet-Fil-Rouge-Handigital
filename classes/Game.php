@@ -21,8 +21,10 @@ class Game {
             } else if ($key == "Id_Games") {
                 $this->setId($value);
             } else if ($key == "banner_image_url") {
+                $value = isset($value) ? $value : "";
                 $this->setBannerImageUrl($value);
             } else if ($key == "icon_image_url") {
+                $value = isset($value) ? $value : "";
                 $this->setIconImageUrl($value);
             }
         }

@@ -3,6 +3,21 @@ class Message extends MessageBase {
     private int $_senderId;
     private int $_receiverId;
 
+    public function hydrate(array $data)
+    {
+        foreach ($data as $key => $value) {
+            $method = "set" . ucfirst($key);
+
+            if (method_exists($this, $method)) {
+                $this->$method($value);
+            } else if ($key == "Id_Sender") {
+                $this->setSenderId($value);
+            } else if ($key == "Id_Receiver") {
+                $this->setReceiverId($value);
+            }
+        }
+    }
+
     public function getSenderId()
     {
         return $this->_senderId;

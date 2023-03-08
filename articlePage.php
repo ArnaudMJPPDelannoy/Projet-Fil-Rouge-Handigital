@@ -44,7 +44,7 @@
             <p>Il n'y a pas de commentaires.</p>
         <?php } else {
             foreach ($articleComments as $comment) {
-                // Require commentCard here.
+                require "templates/commentCard.php";
             }
         }
         // Maybe put an area to comment here ?

@@ -20,6 +20,7 @@ class Article {
             } else if ($key == "Id_Articles") {
                 $this->setId($value);
             } else if ($key == "banner_image_url") {
+                $value = isset($value) ? $value : "";
                 $this->setBannerImageUrl($value);
             }
         }

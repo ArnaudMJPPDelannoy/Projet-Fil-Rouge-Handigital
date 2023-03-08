@@ -42,7 +42,7 @@ function displayContent($category, $content)
             break;
         case "games":
             foreach ($content as $game) {
-                // Require game card template here.
+                require "templates/gameCard.php";
             }
             break;
         case "friends":

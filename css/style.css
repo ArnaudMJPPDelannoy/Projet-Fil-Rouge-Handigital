@@ -177,7 +177,7 @@ footer a {
     overflow-y: scroll;
 }
 
-.article_card_link {
+.article_card_link, .game_card_link, .comment_card_link {
     text-decoration: none;
 }
 
@@ -200,10 +200,26 @@ footer a {
     margin: 0 1%;
 }
 
+.card img {
+    aspect-ratio: 1 / 1;
+    width: 100%;
+    border-radius: 50%;
+    margin: 2.5% 1%;
+    align-self: flex-start;
+}
+
 .game_card {
     display: flex;
     justify-content: space-around;
     align-items: center;
+}
+
+.comment_card {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: unset;
+    min-height: 12.5vh;
 }
 
 .banner {
