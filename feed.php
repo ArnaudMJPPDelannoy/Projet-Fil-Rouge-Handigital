@@ -17,6 +17,11 @@ switch ($category) {
         $repository = new UsersRepository($pdo);
         $content = $repository->getPlayedGames($_SESSION["user"]);
         break;
+    case "game_list":
+        $title = "Liste des Jeux";
+        $repository = new GamesRepository($pdo);
+        $content = $repository->getAll();
+        break;
     case "friends":
         $title = "Liste d'Amis";
         $repository = new UsersRepository($pdo);
@@ -45,6 +50,11 @@ function displayContent($category, $content)
                 require "templates/gameCard.php";
             }
             displayAddGameButton();
+            break;
+        case "game_list":
+            foreach ($content as $game) {
+                require "templates/gameCard.php";
+            }
             break;
         case "friends":
             foreach ($content as $friend) {
@@ -90,7 +100,7 @@ function displayFriendSuggestions()
 
 function displayAddGameButton()
 { ?>
-    <a href="#TBA" class="button">Ajouter des jeux</a>
+    <a href="?category=game_list" class="button">Parcourir les jeux</a>
 <?php }
 ?>
 
