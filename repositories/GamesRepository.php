@@ -53,6 +53,27 @@ class GamesRepository {
     }
 
     /**
+     * Returns all the Games in the Database
+     *
+     * @return  array  An Array of Games
+     */
+    public function getAll()
+    {
+        $query = $this->_db->prepare("SELECT * FROM `games`");
+        $query->execute();
+
+        $results = $query->fetchAll(PDO::FETCH_ASSOC);
+        $games = [];
+
+        foreach ($results as $gameData)
+        {
+            $games[] = new Game($gameData);
+        }
+        
+        return $games;
+    }
+
+    /**
      * Updates a Game in the Database.
      *
      * @param   Game  $game  The Game to update.

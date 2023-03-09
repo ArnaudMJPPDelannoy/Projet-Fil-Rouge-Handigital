@@ -10,6 +10,10 @@ class Message extends MessageBase {
 
             if (method_exists($this, $method)) {
                 $this->$method($value);
+            } else if ($key == "Id_Messages") {
+                $this->setId($value);
+            } else if ($key == "send_time") {
+                $this->setSendTime($value);
             } else if ($key == "Id_Sender") {
                 $this->setSenderId($value);
             } else if ($key == "Id_Receiver") {

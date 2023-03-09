@@ -9,6 +9,21 @@
         if (!isset($article) || empty($article)) {
             header("Location:feed.php");
         } else {
+            if (isSetAndNotEmptyObject($_POST, "comment")) {
+                require "scripts/connect.php";
+                $content = strip_tags($_POST["comment"]);
+                $sendTime = new DateTime();
+                $sendTimeStr = $sendTime->format("Y-m-d H:i:s");
+                $commentsRepo = new CommentsRepository($pdo);
+                $comment = new Comment([
+                    "content" => $content,
+                    "sendTime" => $sendTimeStr,
+                    "posterId" => $_SESSION["user"],
+                    "articleId" => $article->getId(),
+                ]);
+                $commentsRepo->add($comment);
+            }
+            
             $articleTitle = $article->getTitle();
             $articleContent = $article->getContent();
             $articleBanner = $article->getBannerImageUrl();
@@ -47,8 +62,12 @@
                 require "templates/commentCard.php";
             }
         }
-        // Maybe put an area to comment here ?
         ?>
+        <h2>Commentez :</h2>
+        <form action="" method="post" class="comment_form">
+            <textarea name="comment" id="comment" cols="25" rows="10" placeholder="Écrivez votre commentaire ici." required></textarea>
+            <input type="submit" value="Envoyer" class="button">
+        </form>
     </main>
     <?php require "include/footer.php"; ?>
 </body>

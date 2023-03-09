@@ -10,6 +10,10 @@ class Comment extends MessageBase {
 
             if (method_exists($this, $method)) {
                 $this->$method($value);
+            } else if ($key == "Id_Comments") {
+                $this->setId($value);
+            } else if ($key == "send_time") {
+                $this->setSendTime($value);
             } else if ($key == "Id_Poster") {
                 $this->setPosterId($value);
             } else if ($key == "Id_Articles") {

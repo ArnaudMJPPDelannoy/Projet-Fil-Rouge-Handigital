@@ -44,6 +44,7 @@ function displayContent($category, $content)
             foreach ($content as $game) {
                 require "templates/gameCard.php";
             }
+            displayAddGameButton();
             break;
         case "friends":
             foreach ($content as $friend) {
@@ -65,6 +66,7 @@ function displayNoContentMsg($category) {
             break;
         case "games":
             echo "<h3>Vous n'avez pas encore ajouté de jeu. À quoi jouez vous ?</h3>";
+            displayAddGameButton();
             break;
         case "friends":
             echo "<h3>Vous n'avez pas encore d'ami. Recherchez quelqu'un ou trouvez-en dans les suggestions ci-dessous!</h3>";
@@ -85,6 +87,11 @@ function displayFriendSuggestions()
 <?php
     // Make the suggestion list and display it here.
 }
+
+function displayAddGameButton()
+{ ?>
+    <a href="#TBA" class="button">Ajouter des jeux</a>
+<?php }
 ?>
 
 <!DOCTYPE html>

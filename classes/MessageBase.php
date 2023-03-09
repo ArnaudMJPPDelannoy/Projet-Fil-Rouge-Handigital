@@ -9,16 +9,7 @@ abstract class MessageBase {
         $this->hydrate($data);
     }
 
-    public function hydrate(array $data)
-    {
-        foreach ($data as $key => $value) {
-            $method = "set" . ucfirst($key);
-
-            if (method_exists($this, $method)) {
-                $this->$method($value);
-            }
-        }
-    }
+    abstract public function hydrate(array $data);
 
     public function getId()
     {
@@ -44,12 +35,13 @@ abstract class MessageBase {
 
     public function getSendTime()
     {
-        return $this->_sendTime;
+        return $this->_sendTime->format("Y-m-d H:i:s");
     }
 
-    public function setSendTime(DateTime $newSendTime)
+    public function setSendTime(string $newSendTime)
     {
-        $this->_sendTime = $newSendTime;
+        $dateTime = new DateTime($newSendTime);
+        $this->_sendTime = $dateTime;
     }
 }
 ?>

@@ -10,7 +10,11 @@ class ForumMsg extends MessageBase {
 
             if (method_exists($this, $method)) {
                 $this->$method($value);
-            } else if ($key == "Id_Games") {
+            } else if ($key == "Id_ForumMsg") {
+                $this->setId($value);
+            } else if ($key == "send_time") {
+                $this->setSendTime($value);
+            }  else if ($key == "Id_Games") {
                 $this->setGameId($value);
             } else if ($key == "Id_ForumPoster") {
                 $this->setForumPosterId($value);

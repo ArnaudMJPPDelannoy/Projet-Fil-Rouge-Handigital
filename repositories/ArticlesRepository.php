@@ -84,7 +84,7 @@ class ArticlesRepository {
         foreach ($result as $comment) {
             $comments[] = new Comment($comment);
         }
-
+        
         return $comments;
     }
     
