@@ -95,7 +95,25 @@ function displayFriendSuggestions()
     <h2>Suggestions</h2>
     <p>Ces personnes jouent aux mêmes jeux ou types de jeux que vous.</p>
 <?php
-    // Make the suggestion list and display it here.
+    require "scripts/connect.php";
+    $userRepo = new UsersRepository($pdo);
+    $gameRepo = new GamesRepository($pdo);
+    $suggestedPlayers = [];
+    $playedGames = $userRepo->getPlayedGames($_SESSION["user"]);
+    
+    foreach ($playedGames as $game) {
+        $gamePlayers = $gameRepo->getPlayers($game->getId());
+        foreach ($gamePlayers as $player) {
+            if ($player->getId() != $_SESSION["user"] && !in_array($player->getId(), $suggestedPlayers)) {
+                require "templates/friendSuggestionCard.php";
+                $suggestedPlayers[] = $player->getId();
+            }
+        }
+    }
+
+    if (count($suggestedPlayers) <= 0) { ?>
+        <p>Nous n'avons pas pu trouver de joueur correspondant à vos critères de jeux.<br>Essayez d'ajouter des jeux à vos favoris !</p>
+    <?php }
 }
 
 function displayAddGameButton()

@@ -37,6 +37,15 @@ class UsersRepository {
         $user->hydrate(["id" => $this->_db->lastInsertId()]);
     }
 
+    public function addFriend(int $idUser, int $idFriend)
+    {
+        if ($idUser <= 0 || $idFriend <= 0) return;
+        $query = $this->_db->prepare("INSERT INTO `friends` (Id_Users, Id_Friend) VALUES (:user, :friend)");
+        $query->bindValue(":user", $idUser);
+        $query->bindValue(":friend", $idFriend);
+        $query->execute();
+    }
+
     /**
      * Adds a link between a User and a Game
      *
@@ -170,6 +179,14 @@ class UsersRepository {
         $query = $this->_db->prepare("DELETE FROM `users` WHERE `Id_Users` = :id");
         $query->bindValue(":id", $id);
         
+        $query->execute();
+    }
+
+    public function deleteFriend(int $idUser, int $idFriend)
+    {
+        $query = $this->_db->prepare("DELETE FROM `friends` WHERE `Id_Users` = :user AND `Id_Friend` = :friend");
+        $query->bindValue(":user", $idUser);
+        $query->bindValue(":friend", $idFriend);
         $query->execute();
     }
 
