@@ -43,22 +43,22 @@ class User {
         }
     }
 
-    public function getLastName()
+    public function getLastname()
     {
         return $this->_lastName;
     }
 
-    public function setLastName(string $newLastName)
+    public function setLastname(string $newLastName)
     {
         $this->_lastName = $newLastName;
     }
 
-    public function getFirstName()
+    public function getFirstname()
     {
         return $this->_firstName;
     }
 
-    public function setFirstName(string $newFirstName)
+    public function setFirstname(string $newFirstName)
     {
         $this->_firstName = $newFirstName;
     }
@@ -100,12 +100,12 @@ class User {
         }
     }
 
-    public function getUserName()
+    public function getUsername()
     {
         return $this->_userName;
     }
 
-    public function setUserName(string $newUserName)
+    public function setUsername(string $newUserName)
     {
         $this->_userName = $newUserName;
     }

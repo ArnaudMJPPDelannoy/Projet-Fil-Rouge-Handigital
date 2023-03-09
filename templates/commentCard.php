@@ -11,7 +11,7 @@ $commenter = $userRepo->get($commenterId);
     <article class="card comment_card">
         <img src="<?php echo $commenter->getProfileImageUrl(); ?>" alt="Icône du posteur.">
         <div>
-            <h2><?php echo $commenter->getUserName(); ?></h2>
+            <h2><?php echo $commenter->getUsername(); ?></h2>
             <p><?php echo $content; ?></p>
         </div>
     </article>

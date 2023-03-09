@@ -74,6 +74,53 @@ class GamesRepository {
     }
 
     /**
+     * Returns all Genres a Game is associated with
+     *
+     * @param   int  $id  The Id of the Game
+     *
+     * @return  array    An Array of GameGenres
+     */
+    public function getGenres(int $id)
+    {
+        $query = $this->_db->prepare("SELECT * FROM `whichgenres` WHERE Id_Games = :id");
+        $query->bindValue(":id", $id);
+        $query->execute();
+
+        $results = $query->fetchAll(PDO::FETCH_ASSOC);
+        $genres = [];
+
+        foreach ($results as $genreData) {
+            $genres[] = new GameGenre($genreData);
+        }
+
+        return $genres;
+    }
+
+    /**
+     * Returns all Users who has this Game in their favorites
+     *
+     * @param   int  $id  The Id of the Game
+     *
+     * @return  array    An Array of Users
+     */
+    public function getPlayers(int $id)
+    {
+        $query = $this->_db->prepare("SELECT * FROM `play` WHERE Id_Games = :id");
+        $query->bindValue(":id", $id);
+        $query->execute();
+
+        $results = $query->fetchAll(PDO::FETCH_ASSOC);
+        $userRepo = new UsersRepository($this->_db);
+        $users = [];
+
+        foreach ($results as $userData) {
+            $users[] = $userRepo->get($userData["Id_Users"]);
+        }
+
+        return $users;
+    }
+
+    /**
      * Updates a Game in the Database.
      *
      * @param   Game  $game  The Game to update.

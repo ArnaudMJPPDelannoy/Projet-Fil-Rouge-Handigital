@@ -7,7 +7,7 @@ if (strlen($description) > 75) {
 }
 ?>
 
-<a href="gamePage.php?game_id=<?php echo $gameId; ?>" class="game_card_link">
+<a href="gamePage.php?game_id=<?php echo $gameId; ?>&previous_url=feed.php?category=<?php echo $category; ?>" class="game_card_link">
     <article class="card game_card" id="game_card_<?php echo $gameId; ?>">
         <img src="<?php echo $game->getIconImageUrl(); ?>" alt="Icône du Jeu.">
         <div>

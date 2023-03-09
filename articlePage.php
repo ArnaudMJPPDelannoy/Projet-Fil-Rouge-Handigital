@@ -23,7 +23,7 @@
                 ]);
                 $commentsRepo->add($comment);
             }
-            
+
             $articleTitle = $article->getTitle();
             $articleContent = $article->getContent();
             $articleBanner = $article->getBannerImageUrl();
@@ -45,13 +45,13 @@
     <title><?php echo $articleTitle; ?></title>
 </head>
 <body>
+    <a href="feed.php?category=news" class="back-arrow"><i class="bi bi-arrow-left"></i></a>
+    <div class="banner">
+        <?php if (strlen($articleBanner) > 0) { ?>
+            <img src="<?php echo $articleBanner; ?>" alt="Bannière de l'Article">
+        <?php } ?>
+    </div>
     <main class="content_no_header">
-        <a href="javascript:window.history.back();" class="back-arrow"><i class="bi bi-arrow-left"></i></a>
-        <div class="banner">
-            <?php if (strlen($articleBanner) > 0) { ?>
-                <img src="<?php echo $articleBanner; ?>" alt="Bannière de l'Article">
-            <?php } ?>
-        </div>
         <h1><?php echo $articleTitle; ?></h1>
         <p class="article-content"><?php echo $articleContent; ?></p>
         <h2>Commentaires</h2>

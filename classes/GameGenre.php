@@ -16,6 +16,8 @@ class GameGenre {
 
             if (method_exists($this, $method)) {
                 $this->$method($value);
+            } else if ($key == "Id_GameGenres") {
+                $this->setId($value);
             }
         }
     }

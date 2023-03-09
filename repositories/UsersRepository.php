@@ -16,12 +16,12 @@ class UsersRepository {
      */
     public function add(User $user)
     {
-        $lastName = $user->getLastName();
-        $firstName = $user->getFirstName();
+        $lastName = $user->getLastname();
+        $firstName = $user->getFirstname();
         $age = $user->getAge();
         $gender = $user->getGender();
         $email = $user->getEmail();
-        $userName = $user->getUserName();
+        $userName = $user->getUsername();
         $password = $user->getPassword();
 
         $query = $this->_db->prepare("INSERT INTO `users` (lastname, firstname, age, gender, email, username, password) VALUES (:lname, :fname, :age, :gender, :email, :uname, :pass)");
@@ -35,6 +35,23 @@ class UsersRepository {
         $query->execute();
 
         $user->hydrate(["id" => $this->_db->lastInsertId()]);
+    }
+
+    /**
+     * Adds a link between a User and a Game
+     *
+     * @param   int  $idUser  The Id of the User
+     * @param   int  $idGame  The Id of the Game
+     *
+     * @return  void        
+     */
+    public function addPlayedGame(int $idUser, int $idGame)
+    {
+        if ($idUser <= 0 || $idGame <= 0) return;
+        $query = $this->_db->prepare("INSERT INTO `play` (Id_Users, Id_Games) VALUES (:user, :game)");
+        $query->bindValue(":user", $idUser);
+        $query->bindValue(":game", $idGame);
+        $query->execute();
     }
 
     /**
@@ -74,7 +91,7 @@ class UsersRepository {
         $friends = [];
 
         foreach ($result as $friend) {
-            $friends[] = new User($friend);
+            $friends[] = $this->get((int) $friend["Id_Friend"]);
         }
 
         return $friends;
@@ -98,8 +115,10 @@ class UsersRepository {
         $result = $query->fetchAll(PDO::FETCH_ASSOC);
         $playedGames = [];
 
+        $gameRepo = new GamesRepository($this->_db);
+
         foreach ($result as $game) {
-            $playedGames[] = new Game($game);
+            $playedGames[] = $gameRepo->get((int) $game["Id_Games"]);
         }
 
         return $playedGames;
@@ -115,12 +134,12 @@ class UsersRepository {
     public function update(User $user)
     {
         $id = $user->getId();
-        $lastName = $user->getLastName();
-        $firstName = $user->getFirstName();
+        $lastName = $user->getLastname();
+        $firstName = $user->getFirstname();
         $age = $user->getAge();
         $gender = $user->getGender();
         $email = $user->getEmail();
-        $userName = $user->getUserName();
+        $userName = $user->getUsername();
         $password = $user->getPassword();
         $profilePicture = $user->getProfileImageUrl();
 
@@ -151,6 +170,14 @@ class UsersRepository {
         $query = $this->_db->prepare("DELETE FROM `users` WHERE `Id_Users` = :id");
         $query->bindValue(":id", $id);
         
+        $query->execute();
+    }
+
+    public function deletePlayedGame(int $idUser, int $idGame)
+    {
+        $query = $this->_db->prepare("DELETE FROM `play` WHERE `Id_Users` = :user AND `Id_Games` = :game");
+        $query->bindValue(":user", $idUser);
+        $query->bindValue(":game", $idGame);
         $query->execute();
     }
 
