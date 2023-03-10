@@ -38,6 +38,11 @@ abstract class MessageBase {
         return $this->_sendTime->format("Y-m-d H:i:s");
     }
 
+    public function getSendDateTime()
+    {
+        return $this->_sendTime;
+    }
+
     public function setSendTime(string $newSendTime)
     {
         $dateTime = new DateTime($newSendTime);

@@ -70,7 +70,6 @@ function displayProfileFriends(UsersRepository $userRepo, User $user)
         <div class="user_profile_friends">
             <?php displayProfileFriends($userRepo, $user); ?>
         </div>
-        <a href="userProfile.php?disconnect=true" class="button">Se déconnecter</a>
     </main>
     <?php require "include/footer.php"; ?>
 </body>

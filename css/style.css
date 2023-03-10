@@ -202,12 +202,14 @@ input[type="radio"] {
 }
 
 .message_bar {
-    border-radius: 25vw;
+    border-radius: 4.5vw;
     background-color: #761D95;
     border: none;
-    width: 100%;
+    width: 95%;
     height: 100%;
     font-size: 5vw;
+    display: flex;
+    padding: 3.5% 2.5%;
 }
 
 .message_send {
@@ -216,10 +218,7 @@ input[type="radio"] {
     position: absolute;
     align-self: flex-end;
     margin-right: 5%;
-    /* top: 25%;
-    right: 7.5%; */
-    font-size: 7.5vw;
-    
+    font-size: 7.5vw;   
 }
 
 footer {
@@ -298,8 +297,7 @@ footer a {
 
 .content_friend_message {
     width: 95%;
-    /* height: 78vh; */
-    height: 150vh;
+    height: 72vh;
     overflow-y: scroll;
 }
 
@@ -471,4 +469,51 @@ footer a {
     border-radius: 50%;
     aspect-ratio: 1 / 1;
     width: 100%;
+}
+
+.user_message_bubble {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-start;
+    width: 90%;
+}
+
+.friend_message_bubble {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 90%;
+}
+
+.message_bubble p {
+    background-color: #761D95;
+    padding: 2.5%;
+    text-align: center;
+    border-radius: 1.5vw;
+}
+
+.message_bubble img {
+    border-radius: 50%;
+    margin-top: 1vh;
+}
+
+.arrow-left {
+    width: 0;
+    height: 0;
+    border-top: 2.5vw solid transparent;
+    border-bottom: 2.5vw solid transparent;
+
+    border-right: 2.5vw solid #761D95;
+    margin-top: 3.5vh;
+}
+
+.arrow-right {
+    width: 0;
+    height: 0;
+    border-top: 2.5vw solid transparent;
+    border-bottom: 2.5vw solid transparent;
+
+    border-left: 2.5vw solid #761D95;
+
+    margin-top: 3.5vh;
 }
