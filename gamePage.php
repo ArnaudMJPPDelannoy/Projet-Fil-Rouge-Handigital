@@ -93,7 +93,7 @@ if (isSetAndNotEmptyObject($_GET, "game_id")) {
                     <p>Personne n'a ce jeu dans ses favoris.<br>Parlez-en à vos amis !</p>
                 <?php }
             ?>
-            <a href="#TBA" class="button">Accéder au Forum</a>
+            <a href="forumPage.php?game_id=<?php echo $gameId; ?>&previous_url=<?php echo $previousUrl; ?>" class="button">Accéder au Forum</a>
         </section>
     </main>
     <?php require "include/footer.php"; ?>

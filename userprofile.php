@@ -12,9 +12,10 @@ if (isSetAndNotEmptyObject($_GET, "disconnect")) {
 
 function displayFavGames(UsersRepository $userRepo)
 {
+    global $previousUrl;
     $favGames = $userRepo->getPlayedGames($_SESSION["user"]);
     foreach ($favGames as $game) { ?>
-        <a href="gamePage.php?game_id=<?php echo $game->getId(); ?>&previous_url=userProfile.php"><img class="profile_page_game_icon" src="<?php echo $game->getIconImageUrl(); ?>" alt="Icône du Jeu"></a>
+        <a href="gamePage.php?game_id=<?php echo $game->getId(); ?>&previous_url=userProfile.php?previous_url=<?php echo $previousUrl; ?>"><img class="profile_page_game_icon" src="<?php echo $game->getIconImageUrl(); ?>" alt="Icône du Jeu"></a>
     <?php }
 }
 

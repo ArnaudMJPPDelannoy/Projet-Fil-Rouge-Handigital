@@ -1,18 +1,19 @@
 <?php
 require "scripts/functions.php";
-if (isSetAndNotEmptyObject($_GET, "user_id")) {
+if (isSetAndNotEmptyObject($_GET, "game_id")) {
     require "scripts/connect.php";
     $userRepo = new UsersRepository($pdo);
-    $messageRepo = new MessagesRepository($pdo);
-    $user = $userRepo->get((int) $_GET["user_id"]);
-    $headerName = $user->getUsername();
+    $gameRepo = new GamesRepository($pdo);
+    $messageRepo = new ForumMsgRepository($pdo);
+    $game = $gameRepo->get((int) $_GET["game_id"]);
+    $headerName = $game->getName();
     $previousUrl = isSetAndNotEmptyObject($_GET, "previous_url") ? $_GET["previous_url"] : "feed.php?category=chat-friends";
     
     if (isSetAndNotEmptyObject($_POST, "message")) {
         $content = strip_tags($_POST["message"]);
         $sendTime = new DateTime();
         $sendTime = $sendTime->format("Y-m-d H:i:s");
-        $newMsg = new Message(["content" => $content, "send_time" => $sendTime, "receiverId" => $user->getId(), "senderId" => (int) $_SESSION["user"]]);
+        $newMsg = new ForumMsg(["content" => $content, "send_time" => $sendTime, "gameId" => $game->getId(), "forumPosterId" => (int) $_SESSION["user"]]);
         $messageRepo->add($newMsg);
     }
 } else {
@@ -28,23 +29,19 @@ if (isSetAndNotEmptyObject($_GET, "user_id")) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="bootstrap-icons/font/bootstrap-icons.css">
     <link rel="stylesheet" href="css/style.css">
-    <title>Discussion avec <?php echo $headerName; ?></title>
+    <title>Forum de <?php echo $headerName; ?></title>
 </head>
 <body>
     <?php require "include/messageHeader.php"; ?>
     <main class="content_friend_message">
         <?php
-            $content = $messageRepo->getConversation($_SESSION["user"], $user->getId());
+            $content = $messageRepo->getConversation($game->getId());
             if (count($content) <= 0) { ?>
-                <h2>Vous n'avez pas encore démarré la conversation avec cette personne.<br>Qu'attendez-vous ?</h2>
+                <h2>Il n'y a pas de message dans ce forum...<br>Lancez-vous !</h2>
             <?php } else {
                 foreach ($content as $message) {
-                    $sender = $userRepo->get($message->getSenderId());
-                    if ($sender->getId() == (int) $_SESSION["user"]) {
-                        require "templates/userMessage.php";
-                    } else {
-                        require "templates/friendBubble.php";
-                    }
+                    $sender = $userRepo->get($message->getForumPosterId());
+                    require "templates/forumMessageCard.php";
                 }
             }
         ?>

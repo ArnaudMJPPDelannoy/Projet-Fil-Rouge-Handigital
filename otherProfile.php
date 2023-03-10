@@ -16,10 +16,11 @@ if (isSetAndNotEmptyObject($_GET, "add_friend")) {
 
 function displayFavGames(UsersRepository $userRepo, User $user)
 {
+    global $previousUrl;
     $favGames = $userRepo->getPlayedGames($user->getId());
     if (count($favGames) > 0) {
         foreach ($favGames as $game) { ?>
-            <a href="gamePage.php?game_id=<?php echo $game->getId(); ?>&previous_url=userProfile.php"><img class="profile_page_game_icon" src="<?php echo $game->getIconImageUrl(); ?>" alt="Icône du Jeu"></a>
+            <a href="gamePage.php?game_id=<?php echo $game->getId(); ?>&previous_url=otherProfile.php?user_id=<?php echo $user->getId(); ?>%26previous_url=<?php echo $previousUrl; ?>"><img class="profile_page_game_icon" src="<?php echo $game->getIconImageUrl(); ?>" alt="Icône du Jeu"></a>
         <?php }
     } else { ?>
         <p>Cet utilisateur n'a pas de jeu favori.</p>
@@ -31,7 +32,11 @@ function displayProfileFriends(UsersRepository $userRepo, User $user)
     $friendList = $userRepo->getFriends($user->getId());
     if (count($friendList) > 0) {
         foreach ($friendList as $friend) {
-            if ($friend->getId() != $userRepo->get($_SESSION["user"])->getId()) require "templates/otherProfileFriendCard.php";
+            if ($friend->getId() == $_SESSION["user"]) {
+                require "templates/otherProfileUserCard.php";
+            } else {
+                require "templates/otherProfileFriendCard.php";
+            }
         }
     } else { ?>
         <p>Cet utilisateur n'a pas d'ami.<br>Envoyez lui un message !</p>

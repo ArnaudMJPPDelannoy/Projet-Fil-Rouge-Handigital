@@ -143,6 +143,7 @@ input[type="radio"] {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-bottom: 4%;
 }
 
 .chat_sub_header article {
@@ -183,6 +184,10 @@ input[type="radio"] {
     top: 0;
 }
 
+.message_header h1 {
+    font-size: 100%;
+}
+
 .message_header a {
     color: black;
     text-decoration: none;
@@ -191,34 +196,32 @@ input[type="radio"] {
 
 .message_form {
     position: sticky;
-    bottom: 13vh;
+    bottom: 17.5vh;
     width: 95%;
-    height: 7.5vh;
+    height: 5vh;
     margin: auto;
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
 }
 
 .message_bar {
-    border-radius: 4.5vw;
+    border-radius: 4.5vw 0 0 4.5vw;
     background-color: #761D95;
     border: none;
-    width: 95%;
+    width: 75%;
     height: 100%;
     font-size: 5vw;
-    display: flex;
     padding: 3.5% 2.5%;
 }
 
 .message_send {
-    background-color: unset;
+    background-color: #761D95;
+    border-radius: 0 4.5vw 4.5vw 0;
     border: none;
-    position: absolute;
-    align-self: flex-end;
-    margin-right: 5%;
-    font-size: 7.5vw;   
+    font-size: 7.5vw;
+    width: 20%;
+    height: 175%;
 }
 
 footer {
