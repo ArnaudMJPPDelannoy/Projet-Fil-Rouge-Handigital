@@ -3,7 +3,7 @@ $userId = $user->getId();
 $status = "Status To Be Added.";
 ?>
 
-<a href="otherProfile.php?user_id=<?php echo $userId ?>" class="game_card_link">
+<a href="otherProfile.php?user_id=<?php echo $userId ?>&previous_url=gamePage.php?game_id=<?php echo $gameId; ?>%26previous_url=<?php echo $previousUrl ?>" class="game_card_link">
     <article class="card game_card">
         <img src="<?php echo $user->getProfileImageUrl(); ?>" alt="Icône de l'utilisateur.">
         <div>

@@ -134,6 +134,43 @@ header h1 {
     margin: 0 1%;
 }
 
+.chat_sub_header {
+    background-color: black;
+    width: 100%;
+    height: 7.5vh;
+    position: sticky;
+    top: 26vh;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.chat_sub_header article {
+    background-color: #A128CC;
+    width: 49%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.chat_sub_header article a {
+    color: black;
+    text-decoration: none;
+    font-size: 7.5vw;
+    font-weight: bold;
+}
+
+.chat_sub_header article a.selected {
+    color: black;
+    background-color: #761D95;
+    border-radius: 100vw;
+    text-decoration: none;
+    font-size: 7.5vw;
+    font-weight: bold;
+    padding: 1% 2.5%;
+}
+
 footer {
     position: sticky;
     bottom: 0;
@@ -258,10 +295,24 @@ footer a {
     margin: 0 2.5%;
 }
 
+.fav-heart-profile {
+    color: red;
+    text-decoration: none;
+    font-size: 2em;
+    margin: 0 2.5%;
+}
+
 .msg-bubble {
     color: black;
     text-decoration: none;
     font-size: 1.5em;
+    margin: 0 2.5%;
+}
+
+.msg-bubble-profile {
+    color: white;
+    text-decoration: none;
+    font-size: 2em;
     margin: 0 2.5%;
 }
 
@@ -349,4 +400,11 @@ footer a {
 .profile_page_game_icon {
     width: 15%;
     aspect-ratio: 1 / 1;
+}
+
+.other_profile_buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
 }

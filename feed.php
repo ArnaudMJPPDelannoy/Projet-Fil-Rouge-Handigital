@@ -27,15 +27,26 @@ switch ($category) {
         $repository = new UsersRepository($pdo);
         $content = $repository->getFriends($_SESSION["user"]);
         break;
-    case "chat":
+    case "chat-friends":
         $title = "Messages";
+        $userRepo = new UsersRepository($pdo);
+        $content = $userRepo->getFriends($_SESSION["user"]);
+        break;
+    case "chat-forum":
+        $title = "Messages";
+        $userRepo = new UsersRepository($pdo);
+        $content = $userRepo->getPlayedGames($_SESSION["user"]);
         break;
     default:
         $category = "news";
         $title = "News";
         break;
 }
-$indicatorClass = "pos-" . $category;
+if (substr($category, 0, 4) == "chat") {
+    $indicatorClass = "pos-chat";
+} else {
+    $indicatorClass = "pos-" . $category;
+}
 
 if (isSetAndNotEmptyObject($_GET, "add_friend")) {
     $repository->addFriend($_SESSION["user"], $_GET["add_friend"]);
@@ -67,9 +78,15 @@ function displayContent($category, $content)
             }
             displayFriendSuggestions();
             break;
-        case "chat":
-            // Show the secondary Tab-Bar.
-            // And figure out the rest.
+        case "chat-friends":
+            foreach ($content as $friend) {
+                require "templates/friendCard.php";
+            }
+            break;
+        case "chat-forum":
+            foreach ($content as $game) {
+                require "templates/gameForumCard.php";
+            }
             break;
     }
 }
@@ -147,7 +164,12 @@ function displayAddGameButton()
     <title><?php echo $title ?></title>
 </head>
 <body>
-    <?php require "include/header.php"; ?>
+    <?php
+        require "include/header.php";
+        if (substr($category, 0, 4) == "chat") {
+            require "include/chatSubHeader.php";
+        }
+    ?>
     <main class="content" id="content">
         <?php
             if (!isset($content) || $content === false) { ?>
