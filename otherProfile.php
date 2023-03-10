@@ -60,7 +60,7 @@ function displayProfileFriends(UsersRepository $userRepo, User $user)
             <?php } else { ?>
                 <a href="otherProfile.php?user_id=<?php echo $userId; ?>&add_friend=<?php echo $userId; ?>&previous_url=<?php echo $previousUrl; ?>" class="fav-heart-profile"><i class="bi bi-heart"></i></a>
             <?php } ?>
-            <a href="#ToMessagePage" class="msg-bubble-profile"><i class="bi bi-chat-dots"></i></a>
+            <a href="friendMessage.php?user_id=<?php echo $userId; ?>&previous_url=otherProfile.php?user_id=<?php echo $userId; ?>%26previous_url=<?php echo $previousUrl; ?>" class="msg-bubble-profile"><i class="bi bi-chat-dots"></i></a>
         </div>
         <h2>Jeux préférés :</h2>
         <div class="fav_games_profile">

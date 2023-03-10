@@ -26,11 +26,13 @@ switch ($category) {
         $title = "Liste d'Amis";
         $repository = new UsersRepository($pdo);
         $content = $repository->getFriends($_SESSION["user"]);
+        $previousUrl = "feed.php?category=friends";
         break;
     case "chat-friends":
         $title = "Messages";
         $userRepo = new UsersRepository($pdo);
         $content = $userRepo->getFriends($_SESSION["user"]);
+        $previousUrl = "feed.php?category=chat-friends";
         break;
     case "chat-forum":
         $title = "Messages";

@@ -11,7 +11,7 @@ $playerId = $player->getId();
         </div>
         <div class="card_buttons">
             <a href="feed.php?category=friends&add_friend=<?php echo $playerId; ?>" class="fav-heart"><i class="bi bi-heart"></i></a>
-            <a href="#ToMessagePage" class="msg-bubble"><i class="bi bi-chat-dots"></i></a>
+            <a href="friendMessage.php?user_id=<?php echo $playerId; ?>&previous_url=feed.php?category=friends" class="msg-bubble"><i class="bi bi-chat-dots"></i></a>
         </div>
     </article>
 </a>

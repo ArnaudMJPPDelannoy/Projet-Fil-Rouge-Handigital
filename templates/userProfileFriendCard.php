@@ -11,7 +11,7 @@ $status = "Status To Be Added.";
             <p><?php echo $status; ?></p>
         </div>
         <div class="card_buttons">
-            <a href="#ToMessagePage" class="msg-bubble"><i class="bi bi-chat-dots"></i></a>
+            <a href="friendMessage.php?user_id=<?php echo $friendId; ?>&previous_url=userProfile.php?previous_url=<?php echo $previousUrl; ?>" class="msg-bubble"><i class="bi bi-chat-dots"></i></a>
         </div>
     </article>
 </a>

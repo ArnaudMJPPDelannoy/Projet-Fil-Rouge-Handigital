@@ -81,7 +81,7 @@ input[type="radio"] {
     accent-color: #A128CC;
 }
 
-header {
+.feed_header {
     color: black;
     position: sticky;
     top: 0;
@@ -90,42 +90,42 @@ header {
     background-color: #A128CC;
 }
 
-header a {
+.feed_header a {
     color: black;
     width: 20%;
 }
 
-header img {
+.feed_header img {
     border-radius: 50%;
     aspect-ratio: 1 / 1;
     width: 100%;
 }
 
-header section {
+.feed_header section {
     display: flex;
     justify-content: space-around;
     align-items: center;
 }
 
-header section form {
+.feed_header section form {
     display: flex;
     align-items: center;
     margin: 0 2.5%;
 }
 
-header section form button {
+.feed_header section form button {
     width: 25%;
     height: 8.5vh;
     background-color: #8F8F8F;
     border: none;
 }
 
-header section a {
+.feed_header section a {
     text-decoration: none;
     font-weight: bold;
 }
 
-header h1 {
+.feed_header h1 {
     margin-top: 2.5%;
 }
 
@@ -169,6 +169,57 @@ header h1 {
     font-size: 7.5vw;
     font-weight: bold;
     padding: 1% 2.5%;
+}
+
+.message_header {
+    color: black;
+    background-color: #A128CC;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    height: 10vh;
+    position: sticky;
+    top: 0;
+}
+
+.message_header a {
+    color: black;
+    text-decoration: none;
+    font-size: 15vw;
+}
+
+.message_form {
+    position: sticky;
+    bottom: 13vh;
+    width: 95%;
+    height: 7.5vh;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.message_bar {
+    border-radius: 25vw;
+    background-color: #761D95;
+    border: none;
+    width: 100%;
+    height: 100%;
+    font-size: 5vw;
+}
+
+.message_send {
+    background-color: unset;
+    border: none;
+    position: absolute;
+    align-self: flex-end;
+    margin-right: 5%;
+    /* top: 25%;
+    right: 7.5%; */
+    font-size: 7.5vw;
+    
 }
 
 footer {
@@ -242,6 +293,13 @@ footer a {
 .content_user_profile {
     width: 95%;
     height: 88vh;
+    overflow-y: scroll;
+}
+
+.content_friend_message {
+    width: 95%;
+    /* height: 78vh; */
+    height: 150vh;
     overflow-y: scroll;
 }
 
@@ -406,5 +464,11 @@ footer a {
     display: flex;
     justify-content: center;
     align-items: center;
+    width: 100%;
+}
+
+.friend_message_profile_image {
+    border-radius: 50%;
+    aspect-ratio: 1 / 1;
     width: 100%;
 }

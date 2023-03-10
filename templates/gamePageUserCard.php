@@ -14,7 +14,7 @@ $status = "Status To Be Added.";
             <?php if (!$userRepo->isFriend($_SESSION["user"], $userId)) { ?>
                 <a href="gamePage.php?add_friend=<?php echo $userId; ?>&game_id=<?php echo $gameId; ?>&previous_url=<?php echo $previousUrl; ?>" class="fav-heart"><i class="bi bi-heart"></i></a>
             <?php } ?>
-            <a href="#ToMessagePage" class="msg-bubble"><i class="bi bi-chat-dots"></i></a>
+            <a href="friendMessage.php?user_id=<?php echo $userId; ?>&previous_url=gamePage.php?game_id=<?php echo $gameId; ?>%26previous_url=<?php echo $previousUrl; ?>" class="msg-bubble"><i class="bi bi-chat-dots"></i></a>
         </div>
     </article>
 </a>

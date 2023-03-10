@@ -4,7 +4,7 @@ $friendId = $friend->getId();
 $lastMsg = "Aucun.";
 ?>
 
-<a href="otherProfile.php?user_id=<?php echo $friendId; ?>" class="game_card_link">
+<a href="friendMessage.php?user_id=<?php echo $friendId; ?>&previous_url=" class="game_card_link">
     <article class="card game_card">
         <img src="<?php echo $friend->getProfileImageUrl(); ?>" alt="Icône de l'utilisateur.">
         <div>

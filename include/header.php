@@ -5,7 +5,7 @@ $user = $userRepo->get($_SESSION["user"]);
 $userPicUrl = $user->getProfileImageUrl();
 ?>
 
-<header>
+<header class="feed_header">
     <section>
         <a href="" class="settings-icon"><i class="bi bi-sliders2-vertical"></i></a>
         <form action="" method="get">

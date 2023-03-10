@@ -3,7 +3,7 @@ require "scripts/functions.php";
 require "scripts/connect.php";
 $userRepo = new UsersRepository($pdo);
 $user = $userRepo->get($_SESSION["user"]);
-$previousUrl = $_GET["previous_url"];
+$previousUrl = isSetAndNotEmptyObject($_GET, "previous_url") ? $_GET["previous_url"] : "feed.php";
 
 if (isSetAndNotEmptyObject($_GET, "disconnect")) {
     unset($_SESSION["user"]);
