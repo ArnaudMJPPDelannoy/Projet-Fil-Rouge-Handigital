@@ -10,7 +10,7 @@ $playerId = $player->getId();
             <p>Jeu en commun :<br><?php echo $game->getName(); ?></p>
         </div>
         <div class="card_buttons">
-            <a href="#FindAWay" class="fav-heart"><i class="bi bi-heart"></i></a>
+            <a href="feed.php?category=friends&add_friend=<?php echo $playerId; ?>" class="fav-heart"><i class="bi bi-heart"></i></a>
             <a href="#ToMessagePage" class="msg-bubble"><i class="bi bi-chat-dots"></i></a>
         </div>
     </article>

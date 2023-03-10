@@ -17,6 +17,13 @@ if (isSetAndNotEmptyObject($_GET, "game_id")) {
 
         $userRepo = new UsersRepository($pdo);
 
+        if (isSetAndNotEmptyObject($_GET, "add_friend")) {
+            $userRepo = new UsersRepository($pdo);
+            $userRepo->addFriend($_SESSION["user"], $_GET["add_friend"]);
+            header("Location:gamePage.php?game_id=" . $_GET["game_id"] . "&previous_url=" . $previousUrl);
+        }
+        
+
         $gameId = $game->getId();
         $gameName = $game->getName();
         $gameDescription = $game->getDescription();
@@ -64,28 +71,30 @@ if (isSetAndNotEmptyObject($_GET, "game_id")) {
     <title><?php echo $gameName ?></title>
 </head>
 <body>
-    <a href="<?php echo $previousUrl; ?>" class="back-arrow"><i class="bi bi-arrow-left"></i></a>
-    <div class="banner">
-        <img src="<?php echo $gameBanner; ?>" alt="Bannière du Jeu">
-        <img class="game_icon" src="<?php echo $gameIcon; ?>" alt="Icône du Jeu">
-    </div>
-    <a href="gamePage.php?game_id=<?php echo $gameId ?>&game_faved=<?php echo $gameFaved == true ? "false" : "true"; ?>&previous_url=<?php echo $previousUrl; ?>" class="game_favicon"><i class="bi bi-heart<?php if ($gameFaved) echo "break";?>"></i></a>
-    <h1><?php echo $gameName; ?></h1>
-    <main class="content_no_header">
-        <p class="article-content"><?php echo $gameDescription; ?></p>
-        <p>Tags</p>
-        <?php // Show tags/genres here. ?>
-        <h3>Personnes qui aiment ce jeu :</h3>
-        <?php
-            if (count($gamePlayers) > 0) {
-                foreach ($gamePlayers as $user) {
-                    if ($user->getId() != $_SESSION["user"]) require "templates/gamePageUserCard.php";
-                }
-            } else { ?>
-                <p>Personne n'a ce jeu dans ses favoris.<br>Parlez-en à vos amis !</p>
-            <?php }
-        ?>
-        <a href="#TBA" class="button">Accéder au Forum</a>
+    <main class="main_game_page">
+        <a href="<?php echo $previousUrl; ?>" class="back-arrow"><i class="bi bi-arrow-left"></i></a>
+        <div class="banner">
+            <img src="<?php echo $gameBanner; ?>" alt="Bannière du Jeu">
+            <img class="game_icon" src="<?php echo $gameIcon; ?>" alt="Icône du Jeu">
+        </div>
+        <a href="gamePage.php?game_id=<?php echo $gameId ?>&game_faved=<?php echo $gameFaved == true ? "false" : "true"; ?>&previous_url=<?php echo $previousUrl; ?>" class="game_favicon"><i class="bi bi-heart<?php if ($gameFaved) echo "break";?>"></i></a>
+        <h1><?php echo $gameName; ?></h1>
+        <section class="content_game_page">
+            <p class="article-content"><?php echo $gameDescription; ?></p>
+            <p>Tags</p>
+            <?php // Show tags/genres here. ?>
+            <h3>Personnes qui aiment ce jeu :</h3>
+            <?php
+                if (count($gamePlayers) > 0) {
+                    foreach ($gamePlayers as $user) {
+                        if ($user->getId() != $_SESSION["user"]) require "templates/gamePageUserCard.php";
+                    }
+                } else { ?>
+                    <p>Personne n'a ce jeu dans ses favoris.<br>Parlez-en à vos amis !</p>
+                <?php }
+            ?>
+            <a href="#TBA" class="button">Accéder au Forum</a>
+        </section>
     </main>
     <?php require "include/footer.php"; ?>
 </body>

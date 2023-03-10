@@ -11,7 +11,9 @@ $status = "Status To Be Added.";
             <p><?php echo $status; ?></p>
         </div>
         <div class="card_buttons">
-            <a href="#FindAWay" class="fav-heart"><i class="bi bi-heart"></i></a>
+            <?php if (!$userRepo->isFriend($_SESSION["user"], $userId)) { ?>
+                <a href="gamePage.php?add_friend=<?php echo $userId; ?>&game_id=<?php echo $gameId; ?>&previous_url=<?php echo $previousUrl; ?>" class="fav-heart"><i class="bi bi-heart"></i></a>
+            <?php } ?>
             <a href="#ToMessagePage" class="msg-bubble"><i class="bi bi-chat-dots"></i></a>
         </div>
     </article>

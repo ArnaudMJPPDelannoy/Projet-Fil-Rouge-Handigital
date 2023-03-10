@@ -5,6 +5,11 @@ $userRepo = new UsersRepository($pdo);
 $user = $userRepo->get($_SESSION["user"]);
 $previousUrl = $_GET["previous_url"];
 
+if (isSetAndNotEmptyObject($_GET, "disconnect")) {
+    unset($_SESSION["user"]);
+    header("Location:index.php");
+}
+
 function displayFavGames(UsersRepository $userRepo)
 {
     $favGames = $userRepo->getPlayedGames($_SESSION["user"]);
@@ -50,7 +55,7 @@ function displayProfileFriends(UsersRepository $userRepo)
         <div class="user_profile_friends">
             <?php displayProfileFriends($userRepo); ?>
         </div>
-
+        <a href="userProfile.php?disconnect=true" class="button">Se déconnecter</a>
     </main>
     <?php require "include/footer.php"; ?>
 </body>

@@ -107,6 +107,25 @@ class UsersRepository {
     }
 
     /**
+     * Checks if a User is friends with another with their Ids
+     *
+     * @param   int  $userId    Id of the first User
+     * @param   int  $friendId  Id of the second User
+     *
+     * @return  bool          Are they friends?
+     */
+    public function isFriend(int $userId, int $friendId)
+    {
+        $query = $this->_db->prepare("SELECT * FROM `friends` WHERE `Id_Users` = :user AND `Id_Friend` = :friend");
+        $query->bindValue(":user", $userId);
+        $query->bindValue(":friend", $friendId);
+        $query->execute();
+
+        $result = $query->fetch();
+        return isset($result) && !empty($result);
+    }
+
+    /**
      * Returns all the Games a User has in their favorites.
      *
      * @param   int  $id  The id of the User

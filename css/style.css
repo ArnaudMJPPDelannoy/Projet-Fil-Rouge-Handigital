@@ -190,6 +190,18 @@ footer a {
     overflow-y: scroll;
 }
 
+.main_game_page {
+    width: 100%;
+    height: 88vh;
+    overflow-y: scroll;
+}
+
+.content_game_page {
+    width: 95%;
+    height: 68vh;
+    margin: auto;
+}
+
 .content_user_profile {
     width: 95%;
     height: 88vh;
@@ -203,6 +215,7 @@ footer a {
 .card {
     color: black;
     background-color: #761D95;
+    width: 100%;
     height: 12.5vh;
     text-align: left;
     margin: 2.5% 0;
@@ -266,7 +279,6 @@ footer a {
     height: unset;
     color: black;
 }
-
 .comment_card {
     display: flex;
     justify-content: space-around;

@@ -37,6 +37,11 @@ switch ($category) {
 }
 $indicatorClass = "pos-" . $category;
 
+if (isSetAndNotEmptyObject($_GET, "add_friend")) {
+    $repository->addFriend($_SESSION["user"], $_GET["add_friend"]);
+    header("Location:feed.php?category=" . $category);
+}
+
 function displayContent($category, $content)
 {
     switch ($category) {
@@ -58,7 +63,7 @@ function displayContent($category, $content)
             break;
         case "friends":
             foreach ($content as $friend) {
-                // Require friend card template here.
+                require "templates/friendCard.php";
             }
             displayFriendSuggestions();
             break;
@@ -105,8 +110,17 @@ function displayFriendSuggestions()
         $gamePlayers = $gameRepo->getPlayers($game->getId());
         foreach ($gamePlayers as $player) {
             if ($player->getId() != $_SESSION["user"] && !in_array($player->getId(), $suggestedPlayers)) {
-                require "templates/friendSuggestionCard.php";
-                $suggestedPlayers[] = $player->getId();
+                $userFriends = $userRepo->getFriends($_SESSION["user"]);
+                $alreadyFriends = false;
+                foreach ($userFriends as $friend) {
+                    if ($friend->getId() == $player->getId()) {
+                        $alreadyFriends = true;
+                    }
+                }
+                if (!$alreadyFriends) {
+                    require "templates/friendSuggestionCard.php";
+                    $suggestedPlayers[] = $player->getId();
+                }
             }
         }
     }
