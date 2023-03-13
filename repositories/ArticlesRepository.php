@@ -127,6 +127,40 @@ class ArticlesRepository {
         $query->execute();
     }
 
+    /**
+     * Searches a string in the title or content (or both) of the Database's Articles
+     *
+     * @param   string  $searchStr      The string to search for.
+     * @param   bool    $searchTitle    Does it search in the Article's Title?
+     * @param   bool    $searchContent  Does it search in the Article's Content?
+     *
+     * @return  array                  An Array of Articles.
+     */
+    public function search(string $searchStr, bool $searchTitle, bool $searchContent)
+    {
+        $searchStr = strip_tags($searchStr);
+        if ($searchTitle && $searchContent) {
+            $search = "SELECT * FROM `articles` WHERE `title` LIKE \"%" . $searchStr . "%\" OR `content` LIKE \"%" . $searchStr . "%\"";
+        } else if ($searchTitle) {
+            $search = "SELECT * FROM `articles` WHERE `title` LIKE \"%" . $searchStr . "%\"";
+        } else if ($searchContent) {
+            $search = "SELECT * FROM `articles` WHERE `content` LIKE \"%" . $searchStr . "%\"";
+        } else {
+            return [];
+        }
+        $query = $this->_db->prepare($search);
+        $query->execute();
+
+        $results = $query->fetchAll(PDO::FETCH_ASSOC);
+        $searchResult = [];
+        
+        foreach ($results as $articleData) {
+            $searchResult[] = new Article($articleData);
+        }
+
+        return $searchResult;
+    }
+
     public function setDb(PDO $db)
     {
         $this->_db = $db;

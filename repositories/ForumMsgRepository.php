@@ -79,6 +79,48 @@ class ForumMsgRepository {
         $query->execute();
     }
 
+    public function delete(ForumMsg $message)
+    {
+        $id = $message->getId();
+
+        $query = $this->_db->prepare("DELETE FROM `forummsg` WHERE `Id_ForumMsg` = :id");
+        $query->bindValue(":id", $id);
+        $query->execute();
+    }
+
+    public function search(int $userId, string $searchStr, bool $searchGameName, bool $searchPosterName)
+    {
+        $searchStr = strip_tags($searchStr);
+
+        $userRepo = new UsersRepository($this->_db);
+
+        $searchPlayedGames = $searchGameName ? $userRepo->searchPlayedGames($userId, $searchStr, true, false) : [];
+        $playedGames = $userRepo->getPlayedGames($userId);
+
+        global $users;
+        $users = $searchPosterName ? $userRepo->search($searchStr) : [];
+        $users = array_map(function($user) {
+            return $user->getId();
+        }, $users);
+
+        if (empty($users)) return $searchPlayedGames;
+
+
+        $searchPosterName = array_filter($playedGames, function($playedGame) {
+            global $users;
+            $conv = $this->getConversation($playedGame->getId());
+            $messagePosters = [];
+            foreach ($conv as $message) {
+                $messagePosters[] = $message->getForumPosterId();
+            }
+            $intersect = array_intersect($users, $messagePosters);
+            return count($intersect) > 0;
+        });
+        
+        $finalSearchResult = array_unique(array_merge($searchPlayedGames, $searchPosterName));
+        return $finalSearchResult;
+    }
+
     public function setDb(PDO $db)
     {
         $this->_db = $db;

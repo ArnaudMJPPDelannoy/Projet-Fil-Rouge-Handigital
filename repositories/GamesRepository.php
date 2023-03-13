@@ -160,6 +160,39 @@ class GamesRepository {
         $query->execute();
     }
 
+    /**
+     * Searches a string in the Name or Description (or both) of the Database's Games
+     *
+     * @param   string  $searchStr   The string to search for
+     * @param   bool  $searchName  Does it search in the Game's Name?
+     * @param   bool  $searchDesc  Does it search in the Game's Description?
+     *
+     * @return  array               An Array of Games.
+     */
+    public function search(string $searchStr, bool $searchName, bool $searchDesc)
+    {
+        $searchStr = strip_tags($searchStr);
+        $search = "SELECT * FROM `games` WHERE ";
+        if ($searchName && $searchDesc) {
+            $search = $search . "`name` LIKE \"%" . $searchStr . "%\" OR `description` LIKE \"%" . $searchStr . "%\"";
+        } else if ($searchName) {
+            $search = $search . "`name` LIKE \"%" . $searchStr . "%\"";
+        } else if ($searchDesc) {
+            $search = $search . "`description` LIKE \"%" . $searchStr . "%\"";
+        } else {
+            return [];
+        }
+        $query = $this->_db->prepare($search);
+        $query->execute();
+
+        $results = $query->fetchAll(PDO::FETCH_ASSOC);
+        $searchGames = array_map(function($gameData) {
+            return new Game($gameData);
+        }, $results);
+
+        return $searchGames;
+    }
+
     public function setDb(PDO $db)
     {
         $this->_db = $db;

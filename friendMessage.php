@@ -54,5 +54,6 @@ if (isSetAndNotEmptyObject($_GET, "user_id")) {
         <button type="submit" class="message_send"><i class="bi bi-send"></i></button>
     </form>
     <?php require "include/footer.php"; ?>
+    <script src="js/scrollToBottom.js"></script>
 </body>
 </html>

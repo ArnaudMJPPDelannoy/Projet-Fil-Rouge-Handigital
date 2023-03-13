@@ -143,7 +143,6 @@ input[type="radio"] {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 4%;
 }
 
 .chat_sub_header article {
@@ -172,9 +171,26 @@ input[type="radio"] {
     padding: 1% 2.5%;
 }
 
+.header_search_options {
+    /* border: #A128CC solid 2px; */
+    background-color: #761D95;
+    width: 100%;
+    height: 0; /*15vh;*/
+    position: sticky;
+    top: 25vh;
+    text-align: left;
+    overflow-y: hidden;
+    transition: height 0.5s;
+}
+
+.header_search_options_chat {
+    top: 33.5vh;
+    margin-bottom: 4%;
+}
+
 .message_header {
     color: black;
-    background-color: #A128CC;
+    background-color: #501466;
     display: flex;
     justify-content: space-around;
     align-items: center;
