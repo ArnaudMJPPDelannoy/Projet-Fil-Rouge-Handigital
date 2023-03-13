@@ -6,6 +6,7 @@ if (isset($_GET["category"])) {
 } else {
     $category = "news";
 }
+
 switch ($category) {
     case "news":
         $title = "News";
@@ -44,10 +45,45 @@ switch ($category) {
         $title = "News";
         break;
 }
+
 if (substr($category, 0, 4) == "chat") {
     $indicatorClass = "pos-chat";
 } else {
     $indicatorClass = "pos-" . $category;
+}
+
+if (isSetAndNotEmptyObject($_GET, "search")) {
+    $searchStr = strip_tags($_GET["search"]);
+    if (isSetAndNotEmptyObject($_GET, "restrict")) {
+        switch ($category) {
+            case "news":
+                $searchTitle = isSetAndNotEmptyObject($_GET, "search_title") ? strip_tags($_GET["search_title"]) : false;
+                $searchContent = isSetAndNotEmptyObject($_GET, "search_content") ? strip_tags($_GET["search_content"]) : false;
+                $content = $repository->search($searchStr, $searchTitle, $searchContent);
+                break;
+            case "games":
+                $searchName = isSetAndNotEmptyObject($_GET, "search_name") ? strip_tags($_GET["search_name"]) : false;
+                $searchDesc = isSetAndNotEmptyObject($_GET, "search_desc") ? strip_tags($_GET["search_desc"]) : false;
+                $content = $repository->searchPlayedGames($_SESSION["user"], $searchStr, $searchName, $searchDesc);
+                break;
+            case "game_list":
+                $searchName = isSetAndNotEmptyObject($_GET, "search_name") ? strip_tags($_GET["search_name"]) : false;
+                $searchDesc = isSetAndNotEmptyObject($_GET, "search_desc") ? strip_tags($_GET["search_desc"]) : false;
+                $content = $repository->search($searchStr, $searchName, $searchDesc);
+                break;
+            case "friends":
+            case "chat-friends":
+                $userRepo = new UsersRepository($pdo);
+                $content = $userRepo->searchFriends($_SESSION["user"], $searchStr);
+                break;
+            case "chat-forum":
+                $messageRepo = new ForumMsgRepository($pdo);
+                $searchGameName = isSetAndNotEmptyObject($_GET, "search_game_name") ? strip_tags($_GET["search_game_name"]) : false;
+                $searchPosterName = isSetAndNotEmptyObject($_GET, "search_poster_name") ? strip_tags($_GET["search_poster_name"]) : false;
+                $content = $messageRepo->search($_SESSION["user"], $searchStr, $searchGameName, $searchPosterName);
+                break;
+        }
+    }
 }
 
 if (isSetAndNotEmptyObject($_GET, "add_friend")) {
@@ -94,6 +130,10 @@ function displayContent($category, $content)
 }
 
 function displayNoContentMsg($category) {
+    if (isSetAndNotEmptyObject($_GET, "search")) {
+        echo "<h3>Aucun élément ne correspond à votre recherche.</h3>";
+        return;
+    }
     switch ($category) {
         case "news":
             echo "<h3>Il n'y a pas d'article à afficher.</h3>";
@@ -103,11 +143,15 @@ function displayNoContentMsg($category) {
             displayAddGameButton();
             break;
         case "friends":
-            echo "<h3>Vous n'avez pas encore d'ami. Recherchez quelqu'un ou trouvez-en dans les suggestions ci-dessous!</h3>";
+            echo "<h3>Vous n'avez pas encore d'ami. Recherchez quelqu'un ou trouvez-en dans les suggestions ci-dessous !</h3>";
             displayFriendSuggestions();
             break;
-        case "chat":
-            // TO DO
+        case "chat-friends":
+            echo "<h3>Vous n'avez pas encore d'ami. Allez dans l'onglet Amis et trouvez en !</h3>";
+            break;
+        case "chat-forum":
+            echo "<h3>Vous n'avez pas encore ajouté de jeu. Rendez-vous dans l'onglet Jeux et choisissez vos préférés !</h3>";
+            break;
         default:
             echo "<h3>Il n'y a rien à afficher.</h3>";
             break;
@@ -166,12 +210,7 @@ function displayAddGameButton()
     <title><?php echo $title ?></title>
 </head>
 <body>
-    <?php
-        require "include/header.php";
-        if (substr($category, 0, 4) == "chat") {
-            require "include/chatSubHeader.php";
-        }
-    ?>
+    <?php require "include/header.php"; ?>
     <main class="content" id="content">
         <?php
             if (!isset($content) || $content === false) { ?>
@@ -184,5 +223,6 @@ function displayAddGameButton()
         ?>
     </main>
     <?php require "include/footer.php"; ?>
+    <script src="js/feed.js"></script>
 </body>
 </html>

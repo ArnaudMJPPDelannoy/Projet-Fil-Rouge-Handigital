@@ -29,6 +29,7 @@ function displayFavGames(UsersRepository $userRepo, User $user)
 
 function displayProfileFriends(UsersRepository $userRepo, User $user)
 {
+    global $previousUrl;
     $friendList = $userRepo->getFriends($user->getId());
     if (count($friendList) > 0) {
         foreach ($friendList as $friend) {

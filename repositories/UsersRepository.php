@@ -64,7 +64,7 @@ class UsersRepository {
     }
 
     /**
-     * Returns a User from the Databse
+     * Returns a User from the Database
      *
      * @param   mixed  $info  Either an int if searching with Id or a string if searching by UserName.
      *
@@ -81,6 +81,22 @@ class UsersRepository {
         $query->execute();
         $result = $query->fetch(PDO::FETCH_ASSOC);
         return new User($result);
+    }
+
+    /**
+     * Returns all Users from the Database.
+     *
+     * @return  array  An Array of Users
+     */
+    public function getAll()
+    {
+        $query = $this->_db->prepare("SELECT * FROM `users`");
+        $query->execute();
+        $results = $query->fetchAll(PDO::FETCH_ASSOC);
+        $allUsers = array_map(function($userData) {
+            return new User($userData);
+        }, $results);
+        return $allUsers;
     }
 
     /**
@@ -238,6 +254,94 @@ class UsersRepository {
 
         $result = $query->fetch();
         return isset($result) && !empty($result);
+    }
+
+    public function search(string $searchStr)
+    {
+        $searchStr = strip_tags($searchStr);
+
+        $search = "SELECT * FROM `users` WHERE `username` LIKE \"%" . $searchStr . "%\"";
+        $query = $this->_db->prepare($search);
+        $query->execute();
+
+        $results = $query->fetchAll(PDO::FETCH_ASSOC);
+        $searchUsers = array_map(function($userData) {
+            return new User($userData);
+        }, $results);
+
+        return $searchUsers;
+    }
+
+    /**
+     * Searches a string in the Name or Description (or both) of a User's Played Games
+     *
+     * @param   int     $userId             The Id of the User
+     * @param   string  $searchStr          The string to search
+     * @param   bool    $searchName         Does it search in the Game's Name?
+     * @param   bool    $searchDescription  Does it search in the Game's Description?
+     *
+     * @return  array                      An Array of Games
+     */
+    public function searchPlayedGames(int $userId, string $searchStr, bool $searchName, bool $searchDescription)
+    {
+        $searchStr = strip_tags($searchStr);
+
+        $playedGames = $this->getPlayedGames($userId);
+        $playedGamesIds = array_map(function($elem) {
+            return $elem->getId();
+        }, $playedGames);
+
+
+        $search = "SELECT * FROM `games` WHERE `Id_Games` IN (" . implode(',', $playedGamesIds) . ")";
+        if ($searchName && $searchDescription) {
+            $search = $search . " AND `name` LIKE \"%" . $searchStr . "%\" OR `description` LIKE \"%" . $searchStr . "%\"";
+        } else if ($searchName) {
+            $search = $search . " AND `name` LIKE \"%" . $searchStr . "%\"";
+        } else if ($searchDescription) {
+            $search = $search . " AND `description` LIKE \"%" . $searchStr . "%\"";
+        } else {
+            return [];
+        }
+        $query = $this->_db->prepare($search);
+        $query->execute();
+
+        $results = $query->fetchAll(PDO::FETCH_ASSOC);
+        $searchGames = [];
+
+        foreach ($results as $gameData) {
+            $searchGames[] = new Game($gameData);
+        }
+
+        return $searchGames;
+    }
+
+    /**
+     * Searches a string in the Name of the User's Friends
+     *
+     * @param   int     $userId     The Id of the User
+     * @param   string  $searchStr  The string to search for
+     *
+     * @return  array              An Array of Users
+     */
+    public function searchFriends(int $userId, string $searchStr)
+    {
+        $searchStr = strip_tags($searchStr);
+
+        $friends = $this->getFriends($userId);
+        $friendsIds = array_map(function($user) {
+            return $user->getId();
+        }, $friends);
+
+        $search = "SELECT * FROM `users` WHERE `Id_Users` IN (" . implode(",", $friendsIds) . ") AND `username` LIKE \"%" . $searchStr . "%\"";
+        $query = $this->_db->prepare($search);
+        $query->execute();
+
+        $results = $query->fetchAll(PDO::FETCH_ASSOC);
+        $searchFriends = array_map(function($userData) {
+            return new User($userData);
+        }, $results);
+
+        return $searchFriends;
     }
 
     /**
