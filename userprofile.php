@@ -48,7 +48,7 @@ function displayProfileFriends(UsersRepository $userRepo)
     <main class="content_user_profile">
         <img class="profile_page_image" src="<?php echo $user->getProfileImageUrl(); ?>" alt="Image de Profil de l'Utilisateur">
         <h1><?php echo $user->getUsername(); ?></h1>
-        <a href="#TBA" class="button">Modifier le Profil</a>
+        <a href="userProfileEdit.php?previous_url=userProfile.php?previous_url=<?php echo $previousUrl; ?>" class="button">Modifier le Profil</a>
         <h2>Jeux préférés :</h2>
         <div class="fav_games_profile">
             <?php displayFavGames($userRepo); ?>

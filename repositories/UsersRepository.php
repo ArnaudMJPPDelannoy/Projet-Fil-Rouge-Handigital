@@ -196,6 +196,7 @@ class UsersRepository {
         $query->bindValue(":uname", $userName);
         $query->bindValue(":pass", $password);
         $query->bindValue(":profimgurl", $profilePicture);
+        $query->bindValue(":id", $id);
 
         $query->execute();
     }

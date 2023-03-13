@@ -469,7 +469,8 @@ footer a {
 .profile_page_image {
     width: 25%;
     border-radius: 50%;
-    margin-top: 7.5%;;
+    margin-top: 7.5%;
+    aspect-ratio: 1 / 1;
 }
 
 .profile_page_game_icon {
@@ -514,6 +515,26 @@ footer a {
 .message_bubble img {
     border-radius: 50%;
     margin-top: 1vh;
+}
+
+.profile_edit_image {
+    width: 25%;
+    border-radius: 50%;
+    aspect-ratio: 1 / 1;
+}
+
+.game_tag_container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.game_tag {
+    background-color: #761D95;
+    color: black;
+    padding: 2.5%;
+    border-radius: 10vw;
 }
 
 .arrow-left {

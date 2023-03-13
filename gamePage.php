@@ -82,13 +82,15 @@ if (isSetAndNotEmptyObject($_GET, "game_id")) {
         <section class="content_game_page">
             <p class="article-content"><?php echo $gameDescription; ?></p>
             <p>Tags</p>
-            <?php
-                if (count($gameGenres) > 0) {
-                    foreach ($gameGenres as $genre) { ?>
-                        <p class="game_tag"><?php echo $genre->getName(); ?></p>
-                    <?php }
-                }
-            ?>
+            <div class="game_tag_container">
+                <?php
+                    if (count($gameGenres) > 0) {
+                        foreach ($gameGenres as $genre) { ?>
+                            <p class="game_tag"><?php echo $genre->getName(); ?></p>
+                        <?php }
+                    }
+                ?>
+            </div>
             <h3>Personnes qui aiment ce jeu :</h3>
             <?php
                 if (count($gamePlayers) > 0) {

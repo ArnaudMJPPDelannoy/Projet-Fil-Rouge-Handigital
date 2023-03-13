@@ -89,8 +89,10 @@ class GamesRepository {
         $results = $query->fetchAll(PDO::FETCH_ASSOC);
         $genres = [];
 
-        foreach ($results as $genreData) {
-            $genres[] = new GameGenre($genreData);
+        $genreRepo = new GameGenresRepository($this->_db);
+
+        foreach ($results as $gameGenreLink) {
+            $genres[] = $genreRepo->get((int) $gameGenreLink["Id_GameGenres"]);
         }
 
         return $genres;
