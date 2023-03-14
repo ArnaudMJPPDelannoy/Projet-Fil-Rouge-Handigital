@@ -18,8 +18,8 @@ class GamesRepository {
     {
         $name = $game->getName();
         $description = $game->getDescription();
-        $bannerUrl = $game->getBannerImageUrl();
-        $iconUrl = $game->getIconImageUrl();
+        $bannerUrl = str_replace("img/", "", $game->getBannerImageUrl());
+        $iconUrl = str_replace("img/", "", $game->getIconImageUrl());
 
         $query = $this->_db->prepare("INSERT INTO `games` (name, description, banner_image_url, icon_image_url) VALUES (:name, :desc, :banner, :icon)");
         $query->bindValue(":name", $name);
@@ -31,6 +31,14 @@ class GamesRepository {
         $game->hydrate(["id" => $this->_db->lastInsertId()]);
     }
 
+    /**
+     * Links a Game to a GameGenre in the Database
+     *
+     * @param   Game       $game   The Game to link
+     * @param   GameGenre  $genre  The GameGenre to link
+     *
+     * @return  void             
+     */
     public function addLinkToGenre(Game $game, GameGenre $genre)
     {
         $gameId = $game->getId();
@@ -170,6 +178,34 @@ class GamesRepository {
 
         $query = $this->_db->prepare("DELETE FROM `games` WHERE `Id_Games` = :id");
         $query->bindValue(":id", $id);
+        $query->execute();
+    }
+
+    /**
+     * Deletes the link between a Game and a GameGenre
+     *
+     * @param   Game       $game   The Game object
+     * @param   GameGenre  $genre  The GameGenre object
+     *
+     * @return  void             
+     */
+    public function deleteLinkToGenre(Game $game, GameGenre $genre)
+    {
+        $gameId = $game->getId();
+        $genreId = $genre->getId();
+
+        $query = $this->_db->prepare("DELETE FROM `whichgenres` WHERE `Id_Games` = :gameId AND `Id_GameGenres` = :genreId");
+        $query->bindValue(":gameId", $gameId);
+        $query->bindValue(":genreId", $genreId);
+        $query->execute();
+    }
+
+    public function deleteAllGenres(Game $game)
+    {
+        $gameId = $game->getId();
+
+        $query = $this->_db->prepare("DELETE FROM `whichgenres` WHERE `Id_Games` = :gameId");
+        $query->bindValue(":gameId", $gameId);
         $query->execute();
     }
 
