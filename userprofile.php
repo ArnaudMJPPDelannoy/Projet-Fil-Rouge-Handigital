@@ -15,7 +15,7 @@ function displayFavGames(UsersRepository $userRepo)
     global $previousUrl;
     $favGames = $userRepo->getPlayedGames($_SESSION["user"]);
     foreach ($favGames as $game) { ?>
-        <a href="gamePage.php?game_id=<?php echo $game->getId(); ?>&previous_url=userProfile.php?previous_url=<?php echo $previousUrl; ?>"><img class="profile_page_game_icon" src="<?php echo $game->getIconImageUrl(); ?>" alt="Icône du Jeu"></a>
+        <a href="gamePage.php?game_id=<?php echo $game->getId(); ?>&previous_url=userProfile.php?previous_url=<?php echo prepareForUrl($previousUrl); ?>"><img class="profile_page_game_icon" src="<?php echo $game->getIconImageUrl(); ?>" alt="Icône du Jeu"></a>
     <?php }
 }
 
@@ -48,7 +48,7 @@ function displayProfileFriends(UsersRepository $userRepo)
     <main class="content_user_profile">
         <img class="profile_page_image" src="<?php echo $user->getProfileImageUrl(); ?>" alt="Image de Profil de l'Utilisateur">
         <h1><?php echo $user->getUsername(); ?></h1>
-        <a href="userProfileEdit.php?previous_url=userProfile.php?previous_url=<?php echo $previousUrl; ?>" class="button">Modifier le Profil</a>
+        <a href="userProfileEdit.php?previous_url=userProfile.php?previous_url=<?php echo prepareForUrl($previousUrl); ?>" class="button">Modifier le Profil</a>
         <h2>Jeux préférés :</h2>
         <div class="fav_games_profile">
             <?php displayFavGames($userRepo); ?>

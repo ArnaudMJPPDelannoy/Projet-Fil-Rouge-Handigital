@@ -30,6 +30,27 @@ class ArticlesRepository {
     }
 
     /**
+     * Adds the link between an Article and the User who wrote it.
+     *
+     * @param   Article  $article  The Article to link to
+     * @param   User     $writer   The User that wrote the Article
+     *
+     * @return  void             
+     */
+    public function addLinkToWriter(Article $article, User $writer)
+    {
+        $articleId = $article->getId();
+        $userId = $writer->getId();
+        $dateTime = new DateTime();
+
+        $query = $this->_db->prepare("INSERT INTO `writearticle` (Id_Users, Id_Articles, publish_time) VALUES (:userId, :articleId, :sendDate)");
+        $query->bindValue(":userId", $userId);
+        $query->bindValue(":articleId", $articleId);
+        $query->bindValue(":sendDate", $dateTime->format("Y-m-d H:i:s"));
+        $query->execute();
+    }
+
+    /**
      * Returns an Article from the Database
      *
      * @param   int  $info  The Id of the Article in the Database.
@@ -86,6 +107,21 @@ class ArticlesRepository {
         }
         
         return $comments;
+    }
+
+    public function getWriteInfo(int $id)
+    {
+        $query = $this->_db->prepare("SELECT * FROM `writearticle` WHERE `Id_Articles` = :id");
+        $query->bindValue(":id", $id);
+        $query->execute();
+
+        $result = $query->fetch(PDO::FETCH_ASSOC);
+
+        $userRepo = new UsersRepository($this->_db);
+        $writeInfo = [];
+        $writeInfo["writer"] = $userRepo->get($result["Id_Users"]);
+        $writeInfo["publishTime"] = $result["publish_time"];
+        return $writeInfo;
     }
     
     /**

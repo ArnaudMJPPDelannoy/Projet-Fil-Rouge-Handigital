@@ -5,6 +5,7 @@
         require "scripts/connect.php";
         $repository = new ArticlesRepository($pdo);
         $article = $repository->get((int) $_GET["article_id"]);
+        $articleInfos = $repository->getWriteInfo($article->getId());
 
         if (!isset($article) || empty($article)) {
             header("Location:feed.php");
@@ -53,6 +54,8 @@
     </div>
     <main class="content_no_header">
         <h1><?php echo $articleTitle; ?></h1>
+        <p>Écrit par : <?php echo $articleInfos["writer"]->getUsername(); ?></p>
+        <p>Date : <?php echo $articleInfos["publishTime"]; ?></p>
         <p class="article-content"><?php echo $articleContent; ?></p>
         <h2>Commentaires</h2>
         <?php if (count($articleComments) <= 0) { ?>

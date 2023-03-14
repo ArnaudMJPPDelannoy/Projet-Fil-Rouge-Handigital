@@ -7,6 +7,10 @@ if (isset($_GET["category"])) {
     $category = "news";
 }
 
+$userRepo = new UsersRepository($pdo);
+global $curUser;
+$curUser = $userRepo->get($_SESSION["user"]);
+
 switch ($category) {
     case "news":
         $title = "News";
@@ -83,6 +87,21 @@ if (isSetAndNotEmptyObject($_GET, "search")) {
                 $content = $messageRepo->search($_SESSION["user"], $searchStr, $searchGameName, $searchPosterName);
                 break;
         }
+    } else {
+        $category = "search";
+        $title = "Résultats de Recherche";
+        $indicatorClass = "";
+
+        $articleRepo = new ArticlesRepository($pdo);
+        $userRepo = new UsersRepository($pdo);
+        $gameRepo = new GamesRepository($pdo);
+        $messageRepo = new ForumMsgRepository($pdo);
+
+        $content = [];
+        $content["articles"] = $articleRepo->search($searchStr, true, true);
+        $content["games"] = $gameRepo->search($searchStr, true, true);
+        $content["friends"] = $userRepo->searchFriends($_SESSION["user"], $searchStr);
+        $content["forum"] = $messageRepo->search($_SESSION["user"], $searchStr, true, true);
     }
 }
 
@@ -98,6 +117,7 @@ function displayContent($category, $content)
             foreach ($content as $article) {
                 require "templates/articleCard.php";
             }
+            displayAddArticleButton();
             break;
         case "games":
             foreach ($content as $game) {
@@ -109,6 +129,7 @@ function displayContent($category, $content)
             foreach ($content as $game) {
                 require "templates/gameCard.php";
             }
+            displayRealAddGameButton();
             break;
         case "friends":
             foreach ($content as $friend) {
@@ -126,6 +147,41 @@ function displayContent($category, $content)
                 require "templates/gameForumCard.php";
             }
             break;
+        case "search":
+            ?>
+            <h3>Resultats dans les News :</h3>
+            <?php if (count($content["articles"]) > 0) {
+                foreach ($content["articles"] as $article) {
+                    require "templates/articleCard.php";
+                }
+            } else { ?>
+                <p>Aucun</p>
+            <?php } ?>
+            <h3>Resultats dans les Jeux :</h3>
+            <?php if (count($content["games"]) > 0) {
+                foreach ($content["games"] as $game) {
+                    require "templates/gameCard.php";
+                }
+            } else { ?>
+                <p>Aucun</p>
+            <?php } ?>
+            <h3>Résultats dans les Amis :</h3>
+            <?php if (count($content["friends"]) > 0) {
+                foreach ($content["friends"] as $friend) {
+                    require "templates/friendCard.php";
+                }
+            } else { ?>
+                <p>Aucun</p>
+            <?php } ?>
+            <h3>Résultats dans les Messages de Forum :</h3>
+            <?php if (count($content["forum"]) > 0) {
+                foreach ($content["forum"] as $game) {
+                    require "templates/forumMessageCard.php";
+                }
+            } else { ?>
+                <p>Aucun</p>
+            <?php }
+            break;
     }
 }
 
@@ -137,10 +193,15 @@ function displayNoContentMsg($category) {
     switch ($category) {
         case "news":
             echo "<h3>Il n'y a pas d'article à afficher.</h3>";
+            displayAddArticleButton();
             break;
         case "games":
             echo "<h3>Vous n'avez pas encore ajouté de jeu. À quoi jouez vous ?</h3>";
             displayAddGameButton();
+            break;
+        case "game_list":
+            echo "<h3>Il n'y a pas encore de jeu. Contactez l'administrateur pour qu'il en ajoute.</h3>";
+            displayRealAddGameButton();
             break;
         case "friends":
             echo "<h3>Vous n'avez pas encore d'ami. Recherchez quelqu'un ou trouvez-en dans les suggestions ci-dessous !</h3>";
@@ -196,6 +257,19 @@ function displayFriendSuggestions()
 function displayAddGameButton()
 { ?>
     <a href="?category=game_list" class="button">Parcourir les jeux</a>
+<?php }
+
+function displayRealAddGameButton()
+{
+    global $curUser;
+    if ($curUser->getRole() == "admin") { ?>
+        <a href="addGame.php" class="button">Ajouter un Jeu</a>
+<?php }
+}
+
+function displayAddArticleButton()
+{ ?>
+    <a href="addArticle.php" class="button">Écrire un article</a>
 <?php }
 ?>
 

@@ -9,6 +9,7 @@ class User {
     private string $_userName;
     private string $_password;
     private string $_profileImageUrl;
+    private string $_role;
 
     public function __construct(array $data)
     {
@@ -129,6 +130,16 @@ class User {
     public function setProfileImageUrl(string $newUrl)
     {
         $this->_profileImageUrl = $newUrl;
+    }
+
+    public function getRole()
+    {
+        return $this->_role;
+    }
+
+    public function setRole(string $newRole)
+    {
+        $this->_role = $newRole;
     }
 }
 ?>

@@ -64,6 +64,18 @@ form {
     margin: 5% 0;
 }
 
+.textarea-input {
+    background-color: #D9D9D9;
+    font-size: 1em;
+    width: 100%;
+    border: none;
+    margin: 5% 0;
+}
+
+.file-input {
+    margin-bottom: 10%;
+}
+
 .pass-input {
     position: relative;
 }
@@ -127,6 +139,7 @@ input[type="radio"] {
 
 .feed_header h1 {
     margin-top: 2.5%;
+    font-size: 7.5vw;
 }
 
 .settings-icon {
@@ -190,7 +203,7 @@ input[type="radio"] {
 
 .message_header {
     color: black;
-    background-color: #501466;
+    background-color: #A128CC;
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -208,6 +221,28 @@ input[type="radio"] {
     color: black;
     text-decoration: none;
     font-size: 15vw;
+}
+
+.message_options {
+    background-color: white;
+    position: fixed;
+    right: 0;
+    top: 10vh;
+    width: 75%;
+    margin-left: 25%;
+    overflow-y: hidden;
+    height: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    transition: height 0.5s;
+}
+
+.message_options a {
+    color: black;
+    text-decoration: none;
+    font-size: 5vw;
 }
 
 .message_form {
@@ -316,7 +351,7 @@ footer a {
 
 .content_friend_message {
     width: 95%;
-    height: 72vh;
+    height: 73vh;
     overflow-y: scroll;
 }
 
@@ -515,6 +550,9 @@ footer a {
 .message_bubble img {
     border-radius: 50%;
     margin-top: 1vh;
+    width: 20%;
+    aspect-ratio: 1 / 1;
+    flex: none;
 }
 
 .profile_edit_image {

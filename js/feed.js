@@ -10,6 +10,8 @@ searchSettingsIcon.addEventListener("click", function(event) {
 let otherOptionsDiv = document.getElementById("other_options");
 let restrictCheckbox = document.getElementById("restrict");
 
-restrictCheckbox.addEventListener("change", function() {
-    otherOptionsDiv.style.display = restrictCheckbox.checked ? "block" : "none";
-})
+if (restrictCheckbox) {
+    restrictCheckbox.addEventListener("change", function() {
+        otherOptionsDiv.style.display = restrictCheckbox.checked ? "block" : "none";
+    });
+}

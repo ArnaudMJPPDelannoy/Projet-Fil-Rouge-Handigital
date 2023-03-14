@@ -37,12 +37,12 @@ if (isSetAndNotEmptyObject($_POST, "lastname") && isSetAndNotEmptyObject($_POST,
         } else {
             $error = "Image trop volumineuse.";
         }
-    } else if (isSetAndNotEmptyObject($_FILES, "profile_image") && $_FILES["profile_image"]["error"] != 0) {
+    } else if (isSetAndNotEmptyObject($_FILES, "profile_image") && !empty($_FILES["banner"]["name"]) && $_FILES["profile_image"]["error"] != 0) {
         $error = "Une erreur s'est produite lors du téléversement du fichier.";
     }
 
     if (!isset($error) || empty($error)) {
-        $query = $userRepo->update($user);
+        $userRepo->update($user);
         header("Location:" . $previousUrl);
     }
 }

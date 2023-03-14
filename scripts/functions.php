@@ -22,5 +22,9 @@ function isSetAndNotEmptyObject($object, string $element) {
     return isset($object[$element]) && !empty($object[$element]);
 }
 
+function prepareForUrl(string $url) {
+    return str_replace("%26", "%2526", str_replace("&", "%26", $url));
+}
+
 session_start();
 ?>

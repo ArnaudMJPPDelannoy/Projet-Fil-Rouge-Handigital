@@ -77,7 +77,7 @@ if (isSetAndNotEmptyObject($_GET, "game_id")) {
             <img src="<?php echo $gameBanner; ?>" alt="Bannière du Jeu">
             <img class="game_icon" src="<?php echo $gameIcon; ?>" alt="Icône du Jeu">
         </div>
-        <a href="gamePage.php?game_id=<?php echo $gameId ?>&game_faved=<?php echo $gameFaved == true ? "false" : "true"; ?>&previous_url=<?php echo $previousUrl; ?>" class="game_favicon"><i class="bi bi-heart<?php if ($gameFaved) echo "break";?>"></i></a>
+        <a href="gamePage.php?game_id=<?php echo $gameId ?>&game_faved=<?php echo $gameFaved == true ? "false" : "true"; ?>&previous_url=<?php echo prepareForUrl($previousUrl); ?>" class="game_favicon"><i class="bi bi-heart<?php if ($gameFaved) echo "break";?>"></i></a>
         <h1><?php echo $gameName; ?></h1>
         <section class="content_game_page">
             <p class="article-content"><?php echo $gameDescription; ?></p>
@@ -101,7 +101,7 @@ if (isSetAndNotEmptyObject($_GET, "game_id")) {
                     <p>Personne n'a ce jeu dans ses favoris.<br>Parlez-en à vos amis !</p>
                 <?php }
             ?>
-            <a href="forumPage.php?game_id=<?php echo $gameId; ?>&previous_url=<?php echo $previousUrl; ?>" class="button">Accéder au Forum</a>
+            <a href="forumPage.php?game_id=<?php echo $gameId; ?>&previous_url=gamePage.php?game_id=<?php echo $gameId; ?>%26previous_url=<?php echo prepareForUrl($previousUrl); ?>" class="button">Accéder au Forum</a>
         </section>
     </main>
     <?php require "include/footer.php"; ?>

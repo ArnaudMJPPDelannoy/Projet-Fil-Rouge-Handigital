@@ -20,7 +20,7 @@ function displayFavGames(UsersRepository $userRepo, User $user)
     $favGames = $userRepo->getPlayedGames($user->getId());
     if (count($favGames) > 0) {
         foreach ($favGames as $game) { ?>
-            <a href="gamePage.php?game_id=<?php echo $game->getId(); ?>&previous_url=otherProfile.php?user_id=<?php echo $user->getId(); ?>%26previous_url=<?php echo $previousUrl; ?>"><img class="profile_page_game_icon" src="<?php echo $game->getIconImageUrl(); ?>" alt="Icône du Jeu"></a>
+            <a href="gamePage.php?game_id=<?php echo $game->getId(); ?>&previous_url=otherProfile.php?user_id=<?php echo $user->getId(); ?>%26previous_url=<?php echo prepareForUrl($previousUrl); ?>"><img class="profile_page_game_icon" src="<?php echo $game->getIconImageUrl(); ?>" alt="Icône du Jeu"></a>
         <?php }
     } else { ?>
         <p>Cet utilisateur n'a pas de jeu favori.</p>
@@ -62,11 +62,11 @@ function displayProfileFriends(UsersRepository $userRepo, User $user)
         <h1><?php echo $user->getUsername(); ?></h1>
         <div class="other_profile_buttons">
             <?php if ($userRepo->isFriend($_SESSION["user"], $userId)) { ?>
-                <a href="otherProfile.php?user_id=<?php echo $userId; ?>&delete_friend=<?php echo $userId; ?>&previous_url=<?php echo $previousUrl; ?>" class="fav-heart-profile"><i class="bi bi-heartbreak"></i></a>
+                <a href="otherProfile.php?user_id=<?php echo $userId; ?>&delete_friend=<?php echo $userId; ?>&previous_url=<?php echo prepareForUrl($previousUrl); ?>" class="fav-heart-profile"><i class="bi bi-heartbreak"></i></a>
             <?php } else { ?>
-                <a href="otherProfile.php?user_id=<?php echo $userId; ?>&add_friend=<?php echo $userId; ?>&previous_url=<?php echo $previousUrl; ?>" class="fav-heart-profile"><i class="bi bi-heart"></i></a>
+                <a href="otherProfile.php?user_id=<?php echo $userId; ?>&add_friend=<?php echo $userId; ?>&previous_url=<?php echo prepareForUrl($previousUrl); ?>" class="fav-heart-profile"><i class="bi bi-heart"></i></a>
             <?php } ?>
-            <a href="friendMessage.php?user_id=<?php echo $userId; ?>&previous_url=otherProfile.php?user_id=<?php echo $userId; ?>%26previous_url=<?php echo $previousUrl; ?>" class="msg-bubble-profile"><i class="bi bi-chat-dots"></i></a>
+            <a href="friendMessage.php?user_id=<?php echo $userId; ?>&previous_url=otherProfile.php?user_id=<?php echo $userId; ?>%26previous_url=<?php echo prepareForUrl($previousUrl); ?>" class="msg-bubble-profile"><i class="bi bi-chat-dots"></i></a>
         </div>
         <h2>Jeux préférés :</h2>
         <div class="fav_games_profile">
