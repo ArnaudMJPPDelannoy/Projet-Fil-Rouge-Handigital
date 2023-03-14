@@ -78,6 +78,27 @@ class GameGenresRepository {
         $query->execute();
     }
 
+    /**
+     * Checks if a GameGenre exists
+     *
+     * @param   mixed  $info  Int if searching by Id, string if searching by Name
+     *
+     * @return  bool         Does the GameGenre exist?
+     */
+    public function exists($info)
+    {
+        if (is_int($info)) {
+            $query = $this->_db->prepare("SELECT * FROM `gamegenres` WHERE `Id_GameGenres` = :info");
+        } else {
+            $query = $this->_db->prepare("SELECT * FROM `gamegenres` WHERE `name` = :info");
+        }
+        $query->bindValue(":info", $info);
+        $query->execute();
+
+        $result = $query->fetch(PDO::FETCH_ASSOC);
+        return isset($result) && !empty($result);
+    }
+
     public function setDb(PDO $db)
     {
         $this->_db = $db;

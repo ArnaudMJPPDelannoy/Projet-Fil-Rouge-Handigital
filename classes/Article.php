@@ -61,7 +61,7 @@ class Article {
     public function getBannerImageUrl()
     {
         if (!isset($this->_bannerImageUrl)) return "";
-        return $this->_bannerImageUrl;
+        return "img/" . $this->_bannerImageUrl;
     }
 
     public function setBannerImageUrl(string $newBannerUrl)

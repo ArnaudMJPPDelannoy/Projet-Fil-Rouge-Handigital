@@ -31,6 +31,17 @@ class GamesRepository {
         $game->hydrate(["id" => $this->_db->lastInsertId()]);
     }
 
+    public function addLinkToGenre(Game $game, GameGenre $genre)
+    {
+        $gameId = $game->getId();
+        $genreId = $genre->getId();
+
+        $query = $this->_db->prepare("INSERT INTO `whichgenres` (Id_Games, Id_GameGenres) VALUES (:gameId, :genreId)");
+        $query->bindValue(":gameId", $gameId);
+        $query->bindValue(":genreId", $genreId);
+        $query->execute();
+    }
+
     /**
      * Returns a Game from the Database.
      *

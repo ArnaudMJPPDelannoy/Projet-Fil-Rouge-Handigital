@@ -16,9 +16,9 @@ if (isSetAndNotEmptyObject($_GET, "game_id")) {
         }
 
         $userRepo = new UsersRepository($pdo);
+        $curUser = $userRepo->get((int) $_SESSION["user"]);
 
         if (isSetAndNotEmptyObject($_GET, "add_friend")) {
-            $userRepo = new UsersRepository($pdo);
             $userRepo->addFriend($_SESSION["user"], $_GET["add_friend"]);
             header("Location:gamePage.php?game_id=" . $_GET["game_id"] . "&previous_url=" . $previousUrl);
         }
@@ -88,9 +88,14 @@ if (isSetAndNotEmptyObject($_GET, "game_id")) {
                         foreach ($gameGenres as $genre) { ?>
                             <p class="game_tag"><?php echo $genre->getName(); ?></p>
                         <?php }
-                    }
+                    } else { ?>
+                        <p>Il n'y a pas de tag sur ce jeu.</p>
+                    <?php }
                 ?>
             </div>
+            <?php if ($curUser->getRole() == "admin") { ?>
+                <a href="editGameTags.php?game_id=<?php echo $gameId; ?>&previous_url=gamePage.php?game_id=<?php echo $gameId; ?>%26previous_url=<?php echo $previousUrl; ?>">Modifier les Tags</a>
+            <?php } ?>
             <h3>Personnes qui aiment ce jeu :</h3>
             <?php
                 if (count($gamePlayers) > 0) {

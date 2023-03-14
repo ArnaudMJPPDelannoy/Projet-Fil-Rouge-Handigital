@@ -64,7 +64,7 @@ class Game {
 
     public function getBannerImageUrl()
     {
-        return $this->_bannerImageUrl;
+        return "img/" . $this->_bannerImageUrl;
     }
 
     public function setBannerImageUrl(string $newUrl)
@@ -74,7 +74,7 @@ class Game {
 
     public function getIconImageUrl()
     {
-        return $this->_iconImageUrl;
+        return "img/" . $this->_iconImageUrl;
     }
 
     public function setIconImageUrl(string $newIconUrl)
