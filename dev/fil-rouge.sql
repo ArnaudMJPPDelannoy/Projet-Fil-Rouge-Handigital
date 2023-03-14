@@ -8,6 +8,7 @@ CREATE TABLE Users(
    username VARCHAR(50) NOT NULL,
    password VARCHAR(50) NOT NULL,
    profile_image_url VARCHAR(150),
+   role VARCHAR(50) NOT NULL DEFAULT "author",
    PRIMARY KEY(Id_Users),
    UNIQUE(username)
 );

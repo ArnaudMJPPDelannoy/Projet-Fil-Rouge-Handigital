@@ -48,7 +48,7 @@
 <body>
     <a href="feed.php?category=news" class="back-arrow"><i class="bi bi-arrow-left"></i></a>
     <div class="banner">
-        <?php if (strlen($articleBanner) > 0) { ?>
+        <?php if (!empty($articleBanner) && strlen($articleBanner) > 0) { ?>
             <img src="<?php echo $articleBanner; ?>" alt="Bannière de l'Article">
         <?php } ?>
     </div>
