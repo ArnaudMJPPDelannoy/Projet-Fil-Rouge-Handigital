@@ -148,6 +148,8 @@ class User {
 
     public function getConnected()
     {
+        $curDate = new DateTime();
+        if ($curDate > $this->getDisconnectDate()) return false;
         return $this->_connected;
     }
 
