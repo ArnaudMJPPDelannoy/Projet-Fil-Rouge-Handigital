@@ -2,6 +2,7 @@
 <?php
 require "scripts/functions.php";
 require "scripts/connect.php";
+require "scripts/checkConnect.php";
 $userRepo = new UsersRepository($pdo);
 $user = $userRepo->get((int) $_SESSION["user"]);
 $previousUrl = isSetAndNotEmptyObject($_GET, "previous_url") ? $_GET["previous_url"] : "userProfile.php";

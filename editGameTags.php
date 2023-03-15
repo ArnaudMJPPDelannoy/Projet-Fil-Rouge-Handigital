@@ -3,6 +3,7 @@ require "scripts/functions.php";
 
 if (isSetAndNotEmptyObject($_GET, "game_id")) {
     require "scripts/connect.php";
+    require "scripts/checkConnect.php";
     $repository = new GamesRepository($pdo);
     $game = $repository->get((int) $_GET["game_id"]);
 

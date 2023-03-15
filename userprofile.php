@@ -1,11 +1,13 @@
 <?php
 require "scripts/functions.php";
 require "scripts/connect.php";
+require "scripts/checkConnect.php";
 $userRepo = new UsersRepository($pdo);
 $user = $userRepo->get($_SESSION["user"]);
 $previousUrl = isSetAndNotEmptyObject($_GET, "previous_url") ? $_GET["previous_url"] : "feed.php";
 
 if (isSetAndNotEmptyObject($_GET, "disconnect")) {
+    $userRepo->disconnectUser($user);
     unset($_SESSION["user"]);
     header("Location:index.php");
 }

@@ -234,6 +234,37 @@ class UsersRepository {
         $query->execute();
     }
 
+    public function connectUser(User $user) {
+        $userId = $user->getId();
+
+        $disconnectDate = new DateTime();
+        $disconnectDate = $disconnectDate->add(new DateInterval("PT1H"));
+
+        $query = $this->_db->prepare("UPDATE `users` SET connected = true, disconnect_date = :disconnectDate WHERE `Id_Users` = :id");
+        $query->bindValue(":disconnectDate", $disconnectDate->format("Y-m-d H:i:s"));
+        $query->bindValue(":id", $userId);
+        $query->execute();
+    }
+
+    public function updateConnect(User $user)
+    {
+        $userId = $user->getId();
+        $disconnectDate = $user->getDisconnectDate();
+
+        $query = $this->_db->prepare("UPDATE `users` SET connected = true, disconnect_date = :discDate WHERE `Id_Users` = :id");
+        $query->bindValue(":discDate", $disconnectDate->format("Y-m-d H:i:s"));
+        $query->bindValue(":id", $userId);
+        $query->execute();
+    }
+
+    public function disconnectUser(User $user) {
+        $userId = $user->getId();
+
+        $query = $this->_db->prepare("UPDATE `users` SET connected = false, disconnect_date = \"unset\" WHERE `Id_Users` = :id");
+        $query->bindValue(":id", $userId);
+        $query->execute();
+    }
+
     /**
      * Checks if a User exists in the Database.
      *

@@ -3,6 +3,7 @@
 
     if (isSetAndNotEmptyObject($_GET, "article_id")) {
         require "scripts/connect.php";
+        require "scripts/checkConnect.php";
         $repository = new ArticlesRepository($pdo);
         $article = $repository->get((int) $_GET["article_id"]);
         $articleInfos = $repository->getWriteInfo($article->getId());

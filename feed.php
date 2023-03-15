@@ -1,6 +1,7 @@
 <?php
 require "scripts/functions.php";
 require "scripts/connect.php";
+require "scripts/checkConnect.php";
 if (isset($_GET["category"])) {
     $category = $_GET["category"];
 } else {

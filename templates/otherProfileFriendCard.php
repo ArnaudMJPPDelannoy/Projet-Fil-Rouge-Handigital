@@ -1,6 +1,11 @@
 <?php
 $friendId = $friend->getId();
-$status = "Status To Be Added.";
+$status = $friend->getConnected() ? "Connecté" : "Déconnecté";
+if ($friend->getGender() == "woman") {
+    $status = $status . "e";
+} else if ($friend->getGender() == "other") {
+    $status = $status . "(e)";
+}
 ?>
 
 <a href="otherProfile.php?user_id=<?php echo $friendId; ?>&previous_url=otherProfile.php?user_id=<?php echo $user->getId(); ?>%26previous_url=<?php echo prepareForUrl($previousUrl); ?>" class="game_card_link">

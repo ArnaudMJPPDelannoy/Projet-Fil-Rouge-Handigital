@@ -1,6 +1,11 @@
 <?php
 $userId = $user->getId();
-$status = "Status To Be Added.";
+$status = $user->getConnected() ? "Connecté" : "Déconnecté";
+if ($user->getGender() == "woman") {
+    $status = $status . "e";
+} else if ($user->getGender() == "other") {
+    $status = $status . "(e)";
+}
 ?>
 
 <a href="otherProfile.php?user_id=<?php echo $userId ?>&previous_url=gamePage.php?game_id=<?php echo $gameId; ?>%26previous_url=<?php echo prepareForUrl($previousUrl) ?>" class="game_card_link">

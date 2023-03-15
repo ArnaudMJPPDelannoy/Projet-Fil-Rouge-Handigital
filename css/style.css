@@ -241,8 +241,10 @@ input[type="radio"] {
 
 .message_options a {
     color: black;
+    background-color: lightgray;
     text-decoration: none;
     font-size: 5vw;
+    padding: 2.5%;
 }
 
 .message_form {
@@ -386,11 +388,11 @@ footer a {
 
 .card img {
     aspect-ratio: 1 / 1;
-    width: 100%;
+    width: 15vw;
     border-radius: 50%;
     margin: 2.5% 1%;
     align-self: flex-start;
-    flex: 2;
+    flex: none;
 }
 
 .card_buttons {

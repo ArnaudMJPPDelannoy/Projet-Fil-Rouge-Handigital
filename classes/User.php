@@ -10,6 +10,8 @@ class User {
     private string $_password;
     private string $_profileImageUrl;
     private string $_role;
+    private bool $_connected;
+    private DateTime $_disconnectDate;
 
     public function __construct(array $data)
     {
@@ -28,6 +30,8 @@ class User {
             } else if ($key == "profile_image_url") {
                 $value = isset($value) ? $value : "Placeholder.png";
                 $this->setProfileImageUrl($value);
+            } else if ($key == "disconnect_date") {
+                $this->setDisconnectDate($value);
             }
         }
     }
@@ -140,6 +144,30 @@ class User {
     public function setRole(string $newRole)
     {
         $this->_role = $newRole;
+    }
+
+    public function getConnected()
+    {
+        return $this->_connected;
+    }
+
+    public function setConnected(bool $newStatus)
+    {
+        $this->_connected = $newStatus;
+    }
+
+    public function getDisconnectDate()
+    {
+        return $this->_disconnectDate;
+    }
+
+    public function setDisconnectDate(string $newDiscDate)
+    {
+        if (!isset($newDiscDate) || empty($newDiscDate) || $newDiscDate == "unset") {
+            $this->_disconnectDate = new DateTime("999999-12-31");
+            return;
+        }
+        $this->_disconnectDate = new DateTime($newDiscDate);
     }
 }
 ?>

@@ -2,6 +2,7 @@
 require "scripts/functions.php";
 if (isSetAndNotEmptyObject($_GET, "user_id")) {
     require "scripts/connect.php";
+    require "scripts/checkConnect.php";
     $userRepo = new UsersRepository($pdo);
     $messageRepo = new MessagesRepository($pdo);
     $user = $userRepo->get((int) $_GET["user_id"]);

@@ -1,6 +1,7 @@
 <?php
 require "scripts/functions.php";
 require "scripts/connect.php";
+require "scripts/checkConnect.php";
 $userRepo = new UsersRepository($pdo);
 $user = $userRepo->get((int) $_GET["user_id"]);
 $userId = $user->getId();
