@@ -88,8 +88,6 @@ form {
     position: absolute;
     color: gray;
     align-self: flex-end;
-    /* left: 85%; */
-    /* top: 27.5%; */
     font-size: 3.75vmax;
     cursor: pointer;
     margin-right: 5%;

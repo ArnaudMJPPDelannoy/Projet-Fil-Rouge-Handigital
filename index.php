@@ -42,7 +42,7 @@ if (isSetAndNotEmptyObject($_SESSION, "user")) {
             </div>
             <input type="submit" value="Se connecter" class="button">
         </form>
-        <a href="#">Mot de passe oublié ?</a>
+        <a href="passReset.php">Mot de passe oublié ?</a>
         <h3>Pas encore inscrit ?</h3>
         <a href="signup.php" class="button">Inscription</a>
     </main>
