@@ -18,7 +18,7 @@ class ArticlesRepository {
     {
         $title = $article->getTitle();
         $content = $article->getContent();
-        $bannerImgUrl = $article->getBannerImageUrl();
+        $bannerImgUrl = str_replace("img/", "", $article->getBannerImageUrl());
 
         $query = $this->_db->prepare("INSERT INTO `articles` (title, content, banner_image_url) VALUES (:title, :content, :bannerimgurl)");
         $query->bindValue(":title", $title);
@@ -136,7 +136,7 @@ class ArticlesRepository {
         $id = $article->getId();
         $title = $article->getTitle();
         $content = $article->getContent();
-        $banner = $article->getBannerImageUrl();
+        $banner = str_replace("img/", "", $article->getBannerImageUrl());
 
         $query = $this->_db->prepare("UPDATE `articles` SET title = :title, content = :content, banner_image_url = :banner_url WHERE Id_Articles = :id");
         $query->bindValue(":title", $title);

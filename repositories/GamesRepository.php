@@ -153,8 +153,8 @@ class GamesRepository {
         $id = $game->getId();
         $name = $game->getName();
         $description = $game->getDescription();
-        $bannerUrl = $game->getBannerImageUrl();
-        $iconUrl = $game->getIconImageUrl();
+        $bannerUrl = str_replace("img/", "", $game->getBannerImageUrl());
+        $iconUrl = str_replace("img/", "", $game->getIconImageUrl());
 
         $query = $this->_db->prepare("UPDATE `games` SET `name` = :name, `description` = :desc, `banner_image_url` = :banner, `icon_image_url` = :icon WHERE `Id_Games` = :id");
         $query->bindValue(":name", $name);

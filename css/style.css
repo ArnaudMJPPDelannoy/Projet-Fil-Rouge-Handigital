@@ -78,15 +78,21 @@ form {
 
 .pass-input {
     position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
-#pass-show {
+.pass-show {
     position: absolute;
     color: gray;
-    left: 85%;
-    top: 27.5%;
+    align-self: flex-end;
+    /* left: 85%; */
+    /* top: 27.5%; */
     font-size: 3.75vmax;
     cursor: pointer;
+    margin-right: 5%;
 }
 
 input[type="radio"] {

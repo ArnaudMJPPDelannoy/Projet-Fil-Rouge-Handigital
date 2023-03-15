@@ -185,7 +185,7 @@ class UsersRepository {
         $email = $user->getEmail();
         $userName = $user->getUsername();
         $password = $user->getPassword();
-        $profilePicture = $user->getProfileImageUrl();
+        $profilePicture = str_replace("img/", "", $user->getProfileImageUrl());
 
         $query = $this->_db->prepare("UPDATE `users` SET lastname = :lname, firstname = :fname, age = :age, gender = :gender, email = :email, username = :uname, password = :pass, profile_image_url = :profimgurl WHERE `Id_Users` = :id");
         $query->bindValue(":lname", $lastName);

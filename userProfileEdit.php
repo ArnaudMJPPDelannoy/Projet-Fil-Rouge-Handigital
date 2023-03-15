@@ -1,4 +1,3 @@
-
 <?php
 require "scripts/functions.php";
 require "scripts/connect.php";
@@ -82,6 +81,8 @@ if (isSetAndNotEmptyObject($_POST, "lastname") && isSetAndNotEmptyObject($_POST,
             <input type="file" name="profile_image" id="profile_image" class="profile_image_input">
             <input type="submit" class="button" value="Modifier Profil">
         </form>
+        <br>
+        <a class="button" href="passChange.php?previous_url=userProfileEdit.php?previous_url=<?php echo $previousUrl; ?>">Changer le Mot de Passe</a>
     </main>
 </body>
 </html>
