@@ -8,6 +8,9 @@ CREATE TABLE Users(
    username VARCHAR(50) NOT NULL,
    password VARCHAR(50) NOT NULL,
    profile_image_url VARCHAR(150),
+   role VARCHAR(50) NOT NULL DEFAULT "author",
+   connected TINYINT(1) NOT NULL DEFAULT 0,
+   disconnect_date VARCHAR(150) NOT NULL DEFAULT "unset",
    PRIMARY KEY(Id_Users),
    UNIQUE(username)
 );
