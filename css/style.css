@@ -140,6 +140,10 @@ input[type="radio"] {
     border: none;
 }
 
+.feed_header section form input:focus ~ button {
+    outline: auto;
+}
+
 .feed_header section a {
     text-decoration: none;
     font-weight: bold;
@@ -284,6 +288,10 @@ input[type="radio"] {
     font-size: 7.5vw;
     width: 20%;
     height: 100%;
+}
+
+.message_bar:focus ~ .message_send {
+    outline: auto;
 }
 
 footer {
