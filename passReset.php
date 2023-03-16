@@ -61,7 +61,7 @@ function randomPass()
     <?php if ($passwordResetSuccess) { ?>
         <main>
             <h1>Mot de Passe réinitialisé !</h1>
-            <h3>Un E-Mail vous a été envoyé contenant votre nouveau mot de passe.</h3>
+            <h3>Un E-Mail vous a été envoyé à l'adresse "<?php echo $mailTo; ?>" contenant votre nouveau mot de passe.</h3>
             <p>Nous vous conseillons de changer votre mot de passe le plus vite possible dans les parametres du compte.</p>
             <a href="./" class="button">Retourner à la page de connexion</a>
         </main>
