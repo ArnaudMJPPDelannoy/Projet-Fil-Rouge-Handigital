@@ -48,6 +48,8 @@ switch ($category) {
     default:
         $category = "news";
         $title = "News";
+        $repository = new ArticlesRepository($pdo);
+        $content = $repository->getAll();
         break;
 }
 
@@ -77,6 +79,18 @@ if (isSetAndNotEmptyObject($_GET, "search")) {
                 $content = $repository->search($searchStr, $searchName, $searchDesc);
                 break;
             case "friends":
+                $userRepo = new UsersRepository($pdo);
+                if (isSetAndNotEmptyObject($_GET, "search_all_users")) {
+                    $content = $userRepo->search($searchStr);
+                    $content = array_filter($content, function($user) {
+                        return $user->getId() != $_SESSION["user"];
+                    });
+                    global $searchAllUsers;
+                    $searchAllUsers = true;
+                } else {
+                    $content = $userRepo->searchFriends($_SESSION["user"], $searchStr); 
+                }
+                break;
             case "chat-friends":
                 $userRepo = new UsersRepository($pdo);
                 $content = $userRepo->searchFriends($_SESSION["user"], $searchStr);
@@ -133,10 +147,17 @@ function displayContent($category, $content)
             displayRealAddGameButton();
             break;
         case "friends":
-            foreach ($content as $friend) {
-                require "templates/friendCard.php";
+            global $searchAllUsers;
+            if (!$searchAllUsers) {
+                foreach ($content as $friend) {
+                    require "templates/friendCard.php";
+                }
+                displayFriendSuggestions();
+            } else {
+                foreach ($content as $user) {
+                    require "templates/feedSearchAllUserCard.php";
+                }
             }
-            displayFriendSuggestions();
             break;
         case "chat-friends":
             foreach ($content as $friend) {

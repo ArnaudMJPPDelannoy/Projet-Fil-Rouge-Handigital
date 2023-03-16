@@ -64,6 +64,9 @@ if (substr($category, 0, 4) == "chat") {
                 <br>
                 <input type="checkbox" name="search_desc" id="search_desc" form="search_form" checked>
                 <label for="search_desc">Rechercher dans la description</label>
+            <?php } else if ($category == "friends") { ?>
+                <input type="checkbox" name="search_all_users" id="search_all_users" form="search_form" <?php if (isset($searchAllUsers) && $searchAllUsers) echo "checked"; ?>>
+                <label for="search_all_users">Rechercher dans tous les utilisateurs</label>
             <?php } else if ($category == "chat-forum") { ?>
                 <input type="checkbox" name="search_game_name" id="search_game_name" form="search_form" checked>
                 <label for="search_game_name">Rechercher dans le nom du jeu</label>
