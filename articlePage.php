@@ -11,6 +11,10 @@
         if (!isset($article) || empty($article)) {
             header("Location:feed.php");
         } else {
+            if (isSetAndNotEmptyObject($_GET, "delete")) {
+                $repository->delete($article);
+                header("Location:feed.php?category=news");
+            }
             if (isSetAndNotEmptyObject($_POST, "comment")) {
                 require "scripts/connect.php";
                 $content = strip_tags($_POST["comment"]);
@@ -72,6 +76,13 @@
             <textarea name="comment" id="comment" cols="25" rows="10" placeholder="Écrivez votre commentaire ici." required></textarea>
             <input type="submit" value="Envoyer" class="button">
         </form>
+        <br><br>
+        <?php
+        $userRepo = new UsersRepository($pdo);
+        $curUser = $userRepo->get($_SESSION["user"]);
+        if ($curUser->getRole() == "admin") { ?>
+            <a href="articlePage.php?article_id=<?php echo $article->getId(); ?>&delete=true" class="button red-button">Effacer l'Article</a>
+        <?php } ?>
     </main>
     <?php require "include/footer.php"; ?>
 </body>

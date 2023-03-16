@@ -43,6 +43,10 @@ a {
     margin: 5% 0;
 }
 
+.red-button {
+    background-color: red;
+}
+
 form {
     text-align: start;
     width: 100%;

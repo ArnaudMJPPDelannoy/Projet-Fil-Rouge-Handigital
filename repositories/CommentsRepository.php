@@ -51,6 +51,24 @@ class CommentsRepository {
         $query->execute();
     }
 
+    public function delete(Comment $comment)
+    {
+        $id = $comment->getId();
+
+        $query = $this->_db->prepare("DELETE FROM `comments` WHERE `Id_Comments` = :id");
+        $query->bindValue(":id", $id);
+        $query->execute();
+    }
+
+    public function deleteAllFromArticle(Article $article)
+    {
+        $id = $article->getId();
+
+        $query = $this->_db->prepare("DELETE FROM `comments` WHERE `Id_Articles` = :id");
+        $query->bindValue(":id", $id);
+        $query->execute();
+    }
+
     public function setDb(PDO $db)
     {
         $this->_db = $db;

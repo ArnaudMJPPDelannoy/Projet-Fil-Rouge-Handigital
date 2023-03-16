@@ -158,6 +158,14 @@ class ArticlesRepository {
     {
         $id = $article->getId();
 
+        $commentRepo = new CommentsRepository($this->_db);
+
+        $commentRepo->deleteAllFromArticle($article);
+
+        $query = $this->_db->prepare("DELETE FROM `writearticle` WHERE `Id_Articles` = :id");
+        $query->bindValue(":id", $id);
+        $query->execute();
+
         $query = $this->_db->prepare("DELETE FROM `articles` WHERE `Id_Articles` = :id");
         $query->bindValue(":id", $id);
         $query->execute();
