@@ -33,6 +33,10 @@ if (isSetAndNotEmptyObject($_GET, "game_id")) {
         $gameGenres = $repository->getGenres($gameId);
         $gamePlayers = $repository->getPlayers($gameId);
 
+        $gamePlayers = array_filter($gamePlayers, function($player) {
+            return $player->getId() != $_SESSION["user"];
+        });
+
         if (isSetAndNotEmptyObject($_GET, "game_faved")) {
             $gameFaved = $_GET["game_faved"];
             if ($gameFaved == "true") {
