@@ -1,0 +1,1 @@
+Pour faire fonctionner ce projet, créez une base de donnée sur PHPMyAdmin, importez /dev/fil-rouge-final.sql et créez un utilisateur "ArndelFilRouge" avec le mot de passe "2semaines"
