@@ -76,11 +76,11 @@
             <textarea name="comment" id="comment" cols="25" rows="10" placeholder="Écrivez votre commentaire ici." required></textarea>
             <input type="submit" value="Envoyer" class="button">
         </form>
-        <br><br>
         <?php
         $userRepo = new UsersRepository($pdo);
         $curUser = $userRepo->get($_SESSION["user"]);
         if ($curUser->getRole() == "admin") { ?>
+            <br><br>
             <a href="articlePage.php?article_id=<?php echo $article->getId(); ?>&delete=true" class="button red-button">Effacer l'Article</a>
         <?php } ?>
     </main>
