@@ -3,6 +3,10 @@
     src: url("../fonts/Inter-VariableFont_slnt,wght.ttf");
 }
 
+.fix-test {
+    position: fixed;
+}
+
 .error {
     color: red;
 }
@@ -151,7 +155,7 @@ input[type="radio"] {
 
 .feed_header h1 {
     margin-top: 2.5%;
-    font-size: 7.5vw;
+    font-size: 150%;
 }
 
 .settings-icon {
@@ -255,7 +259,7 @@ input[type="radio"] {
     color: black;
     background-color: lightgray;
     text-decoration: none;
-    font-size: 5vw;
+    font-size: 5vmin;
     padding: 2.5%;
 }
 
@@ -340,38 +344,38 @@ footer a {
 
 .content {
     width: 95%;
-    height: 63vh;
-    overflow-y: scroll;
+    min-height: 63vh;
+    /* overflow-y: scroll; */
 }
 
 .content_no_header {
     width: 95%;
-    height: 68vh;
-    overflow-y: scroll;
+    min-height: 68vh;
+    /* overflow-y: scroll; */
 }
 
 .main_game_page {
     width: 100%;
-    height: 88vh;
-    overflow-y: scroll;
+    min-height: 88vh;
+    /* overflow-y: scroll; */
 }
 
 .content_game_page {
     width: 95%;
-    height: 68vh;
+    min-height: 68vh;
     margin: auto;
 }
 
 .content_user_profile {
     width: 95%;
-    height: 88vh;
-    overflow-y: scroll;
+    min-height: 88vh;
+    /* overflow-y: scroll; */
 }
 
 .content_friend_message {
     width: 95%;
     min-height: 68vh;
-    overflow-y: scroll;
+    /* overflow-y: scroll; */
 }
 
 .article_card_link, .game_card_link, .comment_card_link {
