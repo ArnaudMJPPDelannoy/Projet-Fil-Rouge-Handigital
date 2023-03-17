@@ -198,7 +198,20 @@ function displayContent($category, $content)
             <h3>Résultats dans les Messages de Forum :</h3>
             <?php if (count($content["forum"]) > 0) {
                 foreach ($content["forum"] as $game) {
-                    require "templates/forumMessageCard.php";
+                    require "scripts/connect.php";
+                    $userRepo = new UsersRepository($pdo);
+                    $messageRepo = new ForumMsgRepository($pdo);
+                    $forumPosters = $messageRepo->getConversation($game->getId());
+                    $displayed = false;
+                    foreach ($forumPosters as $message) {
+                        $displayed = true;
+                        $sender = $userRepo->get($message->getForumPosterId());
+                        require "templates/forumMessageCard.php";
+                    }
+
+                    if (!$displayed) { ?>
+                        <p>Aucun</p>
+                    <?php }
                 }
             } else { ?>
                 <p>Aucun</p>
