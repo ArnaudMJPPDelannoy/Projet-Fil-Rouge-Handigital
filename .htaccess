@@ -1,23 +1,11 @@
 RewriteEngine On
 RewriteBase /
 
-RewriteRule classes/(.*)$ /index.php [L,R=301]
+RewriteRule classes/(.*)$ /index.php [L,NC,R=301]
 
-RewriteCond %{HTTP_REFERER} !^http://projet-fil-rouge\.test
-RewriteRule css/(.*)\.css$ /index.php [L,NC,R=301]
-
-RewriteCond %{HTTP_REFERER} !^http://projet-fil-rouge\.test
-RewriteRule fonts/(.*)\.ttf$ /index.php [L,NC,R=301]
-RewriteRule fonts/$ /index.php [L,NC,R=301]
-
-RewriteCond %{HTTP_REFERER} !^http://projet-fil-rouge\.test
-RewriteRule img/.*\.(jpg|jpeg|png|webp)$ /index.php [L,NC,R=301]
 
 RewriteRule include/(.*)$ /index.php [L,NC,R=301]
 
-RewriteCond %{HTTP_REFERER} !^http://projet-fil-rouge\.test
-RewriteRule js/(.*)\.js$ /index.php [L,NC,R=301]
-RewriteRule js/$ /index.php [L,NC,R=301]
 
 RewriteRule repositories/(.*)$ /index.php [L,NC,R=301]
 
