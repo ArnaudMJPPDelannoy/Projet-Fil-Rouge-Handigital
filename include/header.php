@@ -8,7 +8,7 @@ $isOnChat = false;
 
 <header class="feed_header">
     <section>
-        <a href="" class="settings-icon" id="search_settings_icon"><i class="bi bi-sliders2-vertical"></i></a>
+        <button class="settings-icon" id="search_settings_icon"><i class="bi bi-sliders2-vertical"></i></button>
         <form action="" method="get" id="search_form">
             <input type="search" name="search" id="search" placeholder="Rechercher" class="text-input">
             <input type="hidden" name="category" value="<?php echo $category; ?>">
